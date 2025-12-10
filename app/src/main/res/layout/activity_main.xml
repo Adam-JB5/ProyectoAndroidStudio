@@ -53,7 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/topBar"
-        android:layout_above="@id/bottomNav">
+        android:layout_above="@id/bottomNav"
+        android:background="@color/negro_fondo">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,13 +111,60 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:background="@android:color/white"
+                android:background="@color/negro_secciones"
                 android:layout_marginTop="8dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:background="#DDDDDD"/>
+            </LinearLayout>
+
+            <!-- NEWS ITEM -->
+            <LinearLayout
+                android:id="@+id/newsItem2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:background="@color/negro_secciones"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:background="#DDDDDD"/>
+            </LinearLayout>
+
+            <!-- NEWS ITEM -->
+            <LinearLayout
+                android:id="@+id/newsItem3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:background="@color/negro_secciones"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@android:color"
                     android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
 
                 <ImageView

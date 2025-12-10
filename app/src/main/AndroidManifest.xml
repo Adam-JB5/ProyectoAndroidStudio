@@ -11,6 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PIAndroidStudio">
+
+        <activity
+            android:name=".EquipoActivity"
+            android:exported="true"
+            android:label="Equipo"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

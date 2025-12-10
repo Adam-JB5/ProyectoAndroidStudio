@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="negro_fondo">#111D13</color>
-    <color name="negro_secciones">#1A1119</color>
+    <color name="negro">#000000</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="negro_fondo">#121212</color>
+    <color name="negro_secciones">#343434</color>
+    <color name="gris_texto">#898989</color>
     <color name="azul">#48BEFF</color>
     <color name="verde">#ADF6B1</color>
 

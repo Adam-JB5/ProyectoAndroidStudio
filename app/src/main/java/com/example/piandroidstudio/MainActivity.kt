@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,6 +63,8 @@ class MainActivity : AppCompatActivity() {
         }
         bottomNavEquipos.setOnClickListener {
             Toast.makeText(this, "Equipos clickeado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, EquipoActivity::class.java)
+            startActivity(intent)
         }
         bottomNavClasificacion.setOnClickListener {
             Toast.makeText(this, "Clasificación clickeado", Toast.LENGTH_SHORT).show()

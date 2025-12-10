@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.PIAndroidStudio" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.PIAndroidStudio" parent="Theme.AppCompat.DayNight.NoActionBar">
+
+        <!-- Color principal de la app -->
+        <item name="colorPrimary">@color/azul</item>
+
+        <!-- Variante oscura (status bar en versiones antiguas) -->
+        <item name="colorPrimaryDark">@color/negro_secciones</item>
+
+        <!-- Color de acento (botones, selecciones, etc.) -->
+        <item name="colorAccent">@color/verde</item>
+
+        <!-- Fondo general -->
+        <item name="android:windowBackground">@color/negro_fondo</item>
+
+    </style>
+
 </resources>

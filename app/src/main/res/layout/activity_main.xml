@@ -11,7 +11,7 @@
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="@android:color/white"
+        android:background="@color/negro"
         android:gravity="center_vertical">
 
         <!-- Título -->
@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:text="INICIO"
             android:textSize="20sp"
+            android:textColor="@color/blanco"
             android:textStyle="bold"/>
 
         <!-- Espacio flexible para empujar los íconos a la derecha -->
@@ -77,21 +78,27 @@
                         android:id="@+id/btnPartido1"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
+                        android:background="@color/negro_secciones"
                         android:text="Partido"
+                        android:textColor="@android:color/white"
                         android:layout_marginEnd="8dp"/>
 
                     <Button
                         android:id="@+id/btnPartido2"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
+                        android:background="@color/negro_secciones"
                         android:text="Partido"
+                        android:textColor="@android:color/white"
                         android:layout_marginEnd="8dp"/>
 
                     <Button
                         android:id="@+id/btnPartido3"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:text="Partido"/>
+                        android:background="@color/negro_secciones"
+                        android:text="Partido"
+                        android:textColor="@android:color/white"/>
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -118,6 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@android:color/white"
                     android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
 
                 <ImageView
@@ -141,6 +149,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@android:color/white"
                     android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
 
                 <ImageView
@@ -164,7 +173,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color"
+                    android:textColor="@android:color/white"
                     android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
 
                 <ImageView
@@ -184,7 +193,7 @@
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="@android:color/white"
+        android:background="@color/negro_secciones"
         android:weightSum="4">
 
         <!-- INICIO -->
@@ -203,6 +212,7 @@
             <TextView
                 android:text="Inicio"
                 android:textSize="12sp"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -223,6 +233,7 @@
             <TextView
                 android:text="Partidos"
                 android:textSize="12sp"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -243,6 +254,7 @@
             <TextView
                 android:text="Equipos"
                 android:textSize="12sp"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -263,6 +275,7 @@
             <TextView
                 android:text="Clasificación"
                 android:textSize="12sp"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

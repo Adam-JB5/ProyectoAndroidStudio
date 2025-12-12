@@ -9,10 +9,10 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:padding="16dp"
         android:background="@android:color/white"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <!-- Título -->
         <TextView
@@ -21,30 +21,30 @@
             android:layout_height="wrap_content"
             android:text="INICIO"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <!-- Espacio flexible para empujar los íconos a la derecha -->
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <!-- Icono de usuario -->
         <ImageView
             android:id="@+id/btnUsuario"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_myplaces"
+            android:layout_marginEnd="12dp"
             android:contentDescription="Usuario"
-            android:layout_marginEnd="12dp"/>
+            android:src="@android:drawable/ic_menu_myplaces" />
 
         <!-- Icono de menú desplegable -->
         <ImageView
             android:id="@+id/btnMenu"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_more"
-            android:contentDescription="Menú"/>
+            android:contentDescription="Menú"
+            android:src="@android:drawable/ic_menu_more" />
     </LinearLayout>
 
     <!-- CONTENIDO -->
@@ -52,10 +52,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
         android:layout_above="@id/bottomNav"
-        android:fillViewport="true"
-        android:background="@color/negro_fondo">
+        android:layout_below="@id/topBar"
+        android:background="@color/negro_fondo"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,121 +63,139 @@
             android:orientation="vertical">
 
             <!-- HEADER EQUIPO -->
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@color/negro_secciones">
+                android:layout_height="250dp"> <!-- Ajusta la altura según necesites -->
 
+                <!-- Imagen de fondo -->
                 <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:background="@drawable/ic_launcher_foreground"
-                    android:src="@android:drawable/ic_menu_gallery"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fondo" /> <!-- Cambia por tu imagen -->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="EQUIPO 1"
-                    android:textSize="20sp"
-                    android:textColor="@color/blanco"
-
-                    android:layout_marginTop="8dp"/>
-
+                <!-- Contenido encima del fondo -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <!-- Logo o imagen principal -->
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@android:drawable/ic_menu_gallery"
+                        android:background="@drawable/ic_launcher_foreground" />
+
+                    <!-- Nombre del equipo -->
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal">
+                        android:text="EQUIPO 1"
+                        android:textSize="20sp"
+                        android:textColor="@color/blanco"
+                        android:layout_marginTop="8dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ciudad"
-                            android:textStyle="bold"
-                            android:textColor="@color/gris_texto"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Zaragoza"
-                            android:textColor="@color/blanco"/>
-                    </LinearLayout>
-
+                    <!-- Información adicional: ciudad y entrenador -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- Ciudad -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Entrenador"
-                            android:textStyle="bold"
-                            android:textColor="@color/gris_texto"/>
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ciudad"
+                                android:textStyle="bold"
+                                android:textColor="@color/gris_texto" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Zaragoza"
+                                android:textColor="@color/blanco" />
+                        </LinearLayout>
+
+                        <!-- Entrenador -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Jose Carlos"
-                            android:textColor="@color/blanco"/>
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Entrenador"
+                                android:textStyle="bold"
+                                android:textColor="@color/gris_texto" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Jose Carlos"
+                                android:textColor="@color/blanco" />
+                        </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </FrameLayout>
+
 
             <!-- TABS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:background="@android:color/white">
+                android:background="@android:color/white"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tabNoticias"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center"
-                    android:text="Noticias"
-                    android:clickable="true"/>
+                    android:text="Noticias" />
 
                 <TextView
                     android:id="@+id/tabPartidos"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center"
-                    android:text="Partidos"
-                    android:clickable="true"/>
+                    android:text="Partidos" />
 
                 <TextView
                     android:id="@+id/tabJugadores"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center"
-                    android:text="Jugadores"
-                    android:clickable="true"/>
+                    android:text="Jugadores" />
 
                 <TextView
                     android:id="@+id/tabClasificacion"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center"
-                    android:text="Clasificación"
-                    android:clickable="true"/>
+                    android:text="Clasificación" />
             </LinearLayout>
 
             <!-- CONTENIDOS -->
@@ -192,28 +210,28 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contenido de noticias"/>
+                    android:text="Contenido de noticias" />
                 <!-- NEWS ITEM -->
                 <LinearLayout
                     android:id="@+id/newsItem1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
                     android:background="@android:color/white"
-                    android:layout_marginTop="8dp">
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
+                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:background="#DDDDDD"/>
+                        android:background="#DDDDDD"
+                        android:src="@android:drawable/ic_menu_gallery" />
                 </LinearLayout>
 
                 <!-- NEWS ITEM -->
@@ -221,22 +239,22 @@
                     android:id="@+id/newsItem2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
                     android:background="@android:color/white"
-                    android:layout_marginTop="8dp">
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
+                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:background="#DDDDDD"/>
+                        android:background="#DDDDDD"
+                        android:src="@android:drawable/ic_menu_gallery" />
                 </LinearLayout>
 
                 <!-- NEWS ITEM -->
@@ -244,22 +262,22 @@
                     android:id="@+id/newsItem3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
                     android:background="@android:color/white"
-                    android:layout_marginTop="8dp">
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
+                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:background="#DDDDDD"/>
+                        android:background="#DDDDDD"
+                        android:src="@android:drawable/ic_menu_gallery" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -274,7 +292,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contenido de partidos"/>
+                    android:text="Contenido de partidos" />
             </LinearLayout>
 
             <LinearLayout
@@ -288,7 +306,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contenido de jugadores"/>
+                    android:text="Contenido de jugadores" />
             </LinearLayout>
 
             <LinearLayout
@@ -302,7 +320,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contenido de clasificación"/>
+                    android:text="Contenido de clasificación" />
             </LinearLayout>
 
         </LinearLayout>
@@ -315,8 +333,8 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:background="@android:color/white"
+        android:orientation="horizontal"
         android:weightSum="4">
 
         <!-- INICIO -->
@@ -324,19 +342,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_view"/>
+                android:src="@android:drawable/ic_menu_view" />
 
             <TextView
-                android:text="Inicio"
-                android:textSize="12sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Inicio"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- PARTIDOS -->
@@ -344,19 +362,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_today"/>
+                android:src="@android:drawable/ic_menu_today" />
 
             <TextView
-                android:text="Partidos"
-                android:textSize="12sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Partidos"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- EQUIPOS -->
@@ -364,19 +382,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_myplaces"/>
+                android:src="@android:drawable/ic_menu_myplaces" />
 
             <TextView
-                android:text="Equipos"
-                android:textSize="12sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Equipos"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- CLASIFICACIÓN -->
@@ -384,19 +402,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_sort_by_size"/>
+                android:src="@android:drawable/ic_menu_sort_by_size" />
 
             <TextView
-                android:text="Clasificación"
-                android:textSize="12sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Clasificación"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

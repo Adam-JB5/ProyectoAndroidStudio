@@ -1,11 +1,8 @@
 package com.example.piandroidstudio
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.Color
 import android.view.View
@@ -24,7 +21,7 @@ class EquipoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.equipo) // ← CAMBIA POR TU XML REAL
+        setContentView(R.layout.activity_equipo) // ← CAMBIA POR TU XML REAL
 
         tabNoticias = findViewById(R.id.tabNoticias)
         tabPartidos = findViewById(R.id.tabPartidos)

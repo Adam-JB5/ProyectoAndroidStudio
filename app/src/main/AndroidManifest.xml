@@ -18,6 +18,21 @@
             android:label="Equipo"
             android:theme="@style/Theme.PIAndroidStudio"/>
 
+        <activity android:name=".EquiposActivity"
+            android:exported="true"
+            android:label="Equipos"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
+        <activity android:name=".PartidoActivity"
+            android:exported="true"
+            android:label="Partido"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
+        <activity android:name=".PartidosActivity"
+            android:exported="true"
+            android:label="Partidos"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

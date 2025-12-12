@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main) // Asegúrate que el nombre del layout sea activity_main.xml
 
+        //BOTTOM BAR
+        setupBottomNav(R.id.bottomNav)
+
         // TOP BAR
         val btnUsuario: ImageView = findViewById(R.id.btnUsuario)
         val btnMenu: ImageView = findViewById(R.id.btnMenu)
@@ -47,27 +50,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Noticia clickeada", Toast.LENGTH_SHORT).show()
         }
 
-        // BOTTOM NAV
-        val bottomNav: LinearLayout = findViewById<LinearLayout>(R.id.bottomNav)
 
-        val bottomNavInicio: LinearLayout = bottomNav.getChildAt(0) as LinearLayout
-        val bottomNavPartidos: LinearLayout = bottomNav.getChildAt(1) as LinearLayout
-        val bottomNavEquipos: LinearLayout = bottomNav.getChildAt(2) as LinearLayout
-        val bottomNavClasificacion: LinearLayout = bottomNav.getChildAt(3) as LinearLayout
-
-        bottomNavInicio.setOnClickListener {
-            Toast.makeText(this, "Inicio clickeado", Toast.LENGTH_SHORT).show()
-        }
-        bottomNavPartidos.setOnClickListener {
-            Toast.makeText(this, "Partidos clickeado", Toast.LENGTH_SHORT).show()
-        }
-        bottomNavEquipos.setOnClickListener {
-            Toast.makeText(this, "Equipos clickeado", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, EquipoActivity::class.java)
-            startActivity(intent)
-        }
-        bottomNavClasificacion.setOnClickListener {
-            Toast.makeText(this, "Clasificación clickeado", Toast.LENGTH_SHORT).show()
-        }
     }
 }

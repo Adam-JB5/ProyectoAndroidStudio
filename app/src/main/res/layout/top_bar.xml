@@ -1,43 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/topBar"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:orientation="horizontal"
-    android:padding="16dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@color/negro"
-    android:gravity="center_vertical">
+    android:paddingHorizontal="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
-    <!-- Título -->
+    <!-- Fila principal: menú - logo - usuario -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Menú desplegable a la izquierda -->
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_more"
+            android:contentDescription="Menú"/>
+
+        <!-- Espacio flexible -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <!-- Logo / texto de marca al centro -->
+        <TextView
+            android:id="@+id/txtLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="North Football"
+            android:textColor="@color/blanco"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <!-- Espacio flexible -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <!-- Icono de usuario a la derecha -->
+        <ImageView
+            android:id="@+id/btnUsuario"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:contentDescription="Usuario"/>
+    </LinearLayout>
+
+    <!-- Bordecito fino como separación -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gris_texto"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
+    <!-- Breadcrumb / texto de sección justo debajo -->
     <TextView
-        android:id="@+id/txtInicio"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtSeccion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="INICIO"
-        android:textSize="20sp"
+        android:text="Inicio"
         android:textColor="@color/blanco"
-        android:textStyle="bold"/>
-
-    <!-- Espacio flexible para empujar los íconos a la derecha -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <!-- Icono de usuario -->
-    <ImageView
-        android:id="@+id/btnUsuario"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@android:drawable/ic_menu_myplaces"
-        android:contentDescription="Usuario"
-        android:layout_marginEnd="12dp"/>
-
-    <!-- Icono de menú desplegable -->
-    <ImageView
-        android:id="@+id/btnMenu"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@android:drawable/ic_menu_more"
-        android:contentDescription="Menú"/>
+        android:textSize="14sp"/>
 </LinearLayout>

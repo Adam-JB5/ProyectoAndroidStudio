@@ -14,14 +14,7 @@ class EquiposActivity : AppCompatActivity() {
         setContentView(R.layout.activity_equipos)
 
         // ---------------- BOTTOM NAV ----------------
-        val bottomNav: LinearLayout = findViewById(R.id.bottomNav)
-
-        bottomNav.getChildAt(0).setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-        bottomNav.getChildAt(1).setOnClickListener { }
-        bottomNav.getChildAt(2).setOnClickListener { }
-        bottomNav.getChildAt(3).setOnClickListener { }
+        setupBottomNav(R.id.bottomNav)
 
         // ----------------  GRUPOS DESPLEGABLES ----------------
 

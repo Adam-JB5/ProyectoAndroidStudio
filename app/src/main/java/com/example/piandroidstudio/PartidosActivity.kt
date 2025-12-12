@@ -28,6 +28,8 @@ class PartidosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partidos)
 
+        setupBottomNav(R.id.bottomNav)
+
         val rvEquiposSeguidos: RecyclerView = findViewById(R.id.rvEquiposSeguidos)
         val rvTodosPartidos: RecyclerView = findViewById(R.id.rvTodosPartidos)
 

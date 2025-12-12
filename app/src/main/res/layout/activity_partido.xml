@@ -5,42 +5,9 @@
     android:background="@color/negro_fondo">
 
     <!-- TOP BAR -->
-    <LinearLayout
+    <include
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@color/negro_fondo"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/txtInicio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="INICIO"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:id="@+id/btnUsuario"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_myplaces"
-            android:layout_marginEnd="12dp"/>
-
-        <ImageView
-            android:id="@+id/btnMenu"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_more"/>
-    </LinearLayout>
+        layout="@layout/top_bar"/>
 
 
     <!-- 🔥 HEADER AJUSTADO DEBAJO DEL TOPBAR -->
@@ -257,34 +224,8 @@
 
 
     <!-- BOTTOM NAV -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:weightSum="4">
-
-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
-            <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_view"/>
-            <TextView android:text="Inicio" android:textSize="13sp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
-            <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_today"/>
-            <TextView android:text="Partidos" android:textSize="13sp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
-            <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_myplaces"/>
-            <TextView android:text="Equipos" android:textSize="13sp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
-            <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_sort_by_size"/>
-            <TextView android:text="Clasificación" android:textSize="13sp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-        </LinearLayout>
-    </LinearLayout>
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/bottom_bar"/>
 
 </RelativeLayout>

@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main) // Asegúrate que el nombre del layout sea activity_main.xml
 
         //BOTTOM BAR
-        setupBottomNav(R.id.bottomNav)
+        setupBottomBar(R.id.bottomBar)
 
         // TOP BAR
         val btnUsuario: ImageView = findViewById(R.id.btnUsuario)

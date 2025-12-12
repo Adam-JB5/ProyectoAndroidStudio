@@ -23,7 +23,7 @@ class EquipoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_equipo) // ← CAMBIA POR TU XML REAL
 
-        setupBottomNav(R.id.bottomNav)
+        setupBottomBar(R.id.bottomBar)
 
         tabNoticias = findViewById(R.id.tabNoticias)
         tabPartidos = findViewById(R.id.tabPartidos)

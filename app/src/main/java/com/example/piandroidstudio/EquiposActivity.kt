@@ -14,7 +14,7 @@ class EquiposActivity : AppCompatActivity() {
         setContentView(R.layout.activity_equipos)
 
         // ---------------- BOTTOM NAV ----------------
-        setupBottomNav(R.id.bottomNav)
+        setupBottomBar(R.id.bottomBar)
 
         // ----------------  GRUPOS DESPLEGABLES ----------------
 

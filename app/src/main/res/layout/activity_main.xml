@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/topBar"
-        android:layout_above="@id/bottomNav"
+        android:layout_above="@id/bottomBar"
         android:background="@color/negro_fondo">
 
         <LinearLayout
@@ -149,7 +149,7 @@
 
     <!-- BOTTOM NAV -->
     <include
-        android:id="@+id/bottomNav"
+        android:id="@+id/bottomBar"
         layout="@layout/bottom_bar"/>
 
 

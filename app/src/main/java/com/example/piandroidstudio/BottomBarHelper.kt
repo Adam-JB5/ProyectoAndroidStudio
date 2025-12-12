@@ -5,8 +5,8 @@ import android.content.Intent
 import android.widget.LinearLayout
 import android.widget.Toast
 
-fun Activity.setupBottomNav(bottomNavId: Int) {
-    val bottomNav = findViewById<LinearLayout>(bottomNavId)
+fun Activity.setupBottomBar(bottomBarId: Int) {
+    val bottomNav = findViewById<LinearLayout>(bottomBarId)
 
     // INICIO
     val navInicio = bottomNav.getChildAt(0) as LinearLayout

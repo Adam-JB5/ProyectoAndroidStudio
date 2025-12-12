@@ -1,63 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
-    <!-- SCROLLVIEW  -->
+    <!-- TOP BAR -->
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/top_bar"/>
+
+    <!-- SCROLLVIEW -->
     <ScrollView
         android:id="@+id/scrollContent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav">
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/bottomBar"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-
-            <!--  TOOLBAR SUPERIOR -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
-
-                <TextView
-                    android:id="@+id/tvTitulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="EQUIPOS"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/btnBuscar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_add"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toStartOf="@id/btnPerfil"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/btnPerfil"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/ic_add"
-                    android:padding="6dp"
-                    android:src="@android:drawable/ic_menu_myplaces"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- GRUPO 1 -->
             <LinearLayout
@@ -74,16 +40,15 @@
                     android:layout_weight="1"
                     android:text="GRUPO 1"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/btnGrupo1"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_more" />
+                    android:src="@android:drawable/ic_menu_more"/>
             </LinearLayout>
 
-            <!-- CONTENEDOR OCULTABLE GRUPO 1 -->
             <LinearLayout
                 android:id="@+id/containerGrupo1"
                 android:layout_width="match_parent"
@@ -95,7 +60,6 @@
                 <include layout="@layout/item_equipo"/>
                 <include layout="@layout/item_equipo"/>
             </LinearLayout>
-
 
             <!-- GRUPO 2 -->
             <LinearLayout
@@ -112,16 +76,15 @@
                     android:layout_weight="1"
                     android:text="GRUPO 2"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/btnGrupo2"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_more" />
+                    android:src="@android:drawable/ic_menu_more"/>
             </LinearLayout>
 
-            <!-- CONTENEDOR OCULTABLE GRUPO 2 -->
             <LinearLayout
                 android:id="@+id/containerGrupo2"
                 android:layout_width="match_parent"
@@ -136,99 +99,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BARRA DE NAVEGACION -->
-    <LinearLayout
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent">
+    <!-- BOTTOM BAR -->
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/bottom_bar"/>
 
-        <!-- INICIO -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_view"/>
-
-            <TextView
-                android:id="@+id/navInicio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicio"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-        <!-- PARTIDOS -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_today"/>
-
-            <TextView
-                android:id="@+id/navPartidos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Partidos"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-        <!-- EQUIPOS -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_myplaces"/>
-
-            <TextView
-                android:id="@+id/navEquipos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Equipos"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-        <!-- CLASIFICACIÓN -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_sort_by_size"/>
-
-            <TextView
-                android:id="@+id/navClasificacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clasificación"
-                android:textSize="12sp"/>
-        </LinearLayout>
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

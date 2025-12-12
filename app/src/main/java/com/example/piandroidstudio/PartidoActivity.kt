@@ -13,7 +13,7 @@ class PartidoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partido) // tu XML adaptado
 
-        setupBottomNav(R.id.bottomNav)
+        setupBottomBar(R.id.bottomBar)
 
         // Lista de ImageViews que funcionan como "checkbox visual"
         val iconos = listOf(

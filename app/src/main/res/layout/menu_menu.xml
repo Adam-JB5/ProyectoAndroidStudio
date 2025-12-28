@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menuMenu"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:orientation="vertical"
+    android:background="@color/negro"
+    android:padding="16dp"
+    android:visibility="gone"
+    android:elevation="12dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Menú"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/blanco"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navInicio"
+        android:text="Inicio"
+        android:textColor="@color/blanco"
+        android:paddingVertical="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navPartidos"
+        android:text="Partidos"
+        android:textColor="@color/blanco"
+        android:paddingVertical="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navEquipos"
+        android:text="Equipos"
+        android:textColor="@color/blanco"
+        android:paddingVertical="12dp"/>
+</LinearLayout>

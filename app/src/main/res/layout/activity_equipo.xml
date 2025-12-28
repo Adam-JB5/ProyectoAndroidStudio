@@ -169,10 +169,6 @@
                 android:padding="8dp"
                 android:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contenido de noticias" />
                 <!-- NEWS ITEM -->
                 <LinearLayout
                     android:id="@+id/newsItem1"

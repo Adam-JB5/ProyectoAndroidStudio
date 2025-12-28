@@ -22,7 +22,7 @@
             android:id="@+id/btnMenu"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_more"
+            android:src="@drawable/menu"
             android:contentDescription="Menú"/>
 
         <!-- Espacio flexible -->
@@ -52,7 +52,7 @@
             android:id="@+id/btnUsuario"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_myplaces"
+            android:src="@drawable/user"
             android:contentDescription="Usuario"/>
     </LinearLayout>
 

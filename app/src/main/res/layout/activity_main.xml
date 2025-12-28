@@ -152,5 +152,12 @@
         android:id="@+id/bottomBar"
         layout="@layout/bottom_bar"/>
 
+    <!-- Menus y overlay -->
+    <include layout="@layout/overlay"/>
+    <include layout="@layout/menu_menu"/>
+    <include layout="@layout/menu_user"/>
 
 </RelativeLayout>
+
+
+

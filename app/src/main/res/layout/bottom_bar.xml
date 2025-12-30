@@ -5,7 +5,7 @@
     android:layout_height="64dp"
     android:layout_alignParentBottom="true"
     android:orientation="horizontal"
-    android:background="@color/negro_secciones"
+    android:background="@color/negro"
     android:weightSum="4">
 
     <!-- INICIO -->

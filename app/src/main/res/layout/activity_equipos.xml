@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/negro_fondo">
 
     <!-- TOP BAR -->
     <include
@@ -40,7 +40,8 @@
                     android:layout_weight="1"
                     android:text="GRUPO 1"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
 
                 <ImageView
                     android:id="@+id/btnGrupo1"
@@ -53,7 +54,9 @@
                 android:id="@+id/containerGrupo1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_marginTop="8dp">
 
                 <include layout="@layout/item_equipo"/>
                 <include layout="@layout/item_equipo"/>
@@ -76,7 +79,8 @@
                     android:layout_weight="1"
                     android:text="GRUPO 2"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
 
                 <ImageView
                     android:id="@+id/btnGrupo2"
@@ -89,7 +93,9 @@
                 android:id="@+id/containerGrupo2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_marginTop="8dp">
 
                 <include layout="@layout/item_equipo"/>
                 <include layout="@layout/item_equipo"/>

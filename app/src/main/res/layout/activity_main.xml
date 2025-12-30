@@ -7,7 +7,9 @@
     <!-- TOP BAR -->
     <include
         android:id="@+id/topBar"
-        layout="@layout/top_bar"/>
+        layout="@layout/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <!-- CONTENT -->
     <ScrollView
@@ -35,31 +37,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btnPartido1"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/negro_secciones"
-                        android:text="Partido"
-                        android:textColor="@android:color/white"
-                        android:layout_marginEnd="8dp"/>
+                    <LinearLayout
+                        android:id="@+id/partido1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <include layout="@layout/item_partido"/>
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnPartido2"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/negro_secciones"
-                        android:text="Partido"
-                        android:textColor="@android:color/white"
-                        android:layout_marginEnd="8dp"/>
+                    <LinearLayout
+                        android:id="@+id/partido2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <include layout="@layout/item_partido"/>
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnPartido3"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/negro_secciones"
-                        android:text="Partido"
-                        android:textColor="@android:color/white"/>
+                    <LinearLayout
+                        android:id="@+id/partido3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <include layout="@layout/item_partido"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -69,79 +67,30 @@
                 android:layout_height="wrap_content"
                 android:text="NOTICIAS"
                 android:textSize="22sp"
+                android:textColor="@color/blanco"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"/>
 
-            <!-- NEWS ITEM -->
+            <!-- NEWS ITEMS -->
             <LinearLayout
-                android:id="@+id/newsItem1"
+                android:id="@+id/noticia1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp"
-                android:background="@color/negro_secciones"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/white"
-                    android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:background="#DDDDDD"/>
+                android:layout_height="wrap_content">
+                <include layout="@layout/item_noticia"/>
             </LinearLayout>
 
-            <!-- NEWS ITEM -->
             <LinearLayout
-                android:id="@+id/newsItem2"
+                android:id="@+id/noticia2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp"
-                android:background="@color/negro_secciones"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/white"
-                    android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:background="#DDDDDD"/>
+                android:layout_height="wrap_content">
+                <include layout="@layout/item_noticia"/>
             </LinearLayout>
 
-            <!-- NEWS ITEM -->
             <LinearLayout
-                android:id="@+id/newsItem3"
+                android:id="@+id/noticia3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp"
-                android:background="@color/negro_secciones"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/white"
-                    android:text="Lorem ipsum dolor sit amet et delectus accommodare his"/>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:background="#DDDDDD"/>
+                android:layout_height="wrap_content">
+                <include layout="@layout/item_noticia"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -150,14 +99,25 @@
     <!-- BOTTOM NAV -->
     <include
         android:id="@+id/bottomBar"
-        layout="@layout/bottom_bar"/>
+        layout="@layout/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
     <!-- Menus y overlay -->
-    <include layout="@layout/overlay"/>
-    <include layout="@layout/menu_menu"/>
-    <include layout="@layout/menu_user"/>
+    <include
+        layout="@layout/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include
+        layout="@layout/menu_menu"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"/>
+
+    <include
+        layout="@layout/menu_user"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
-
-
-

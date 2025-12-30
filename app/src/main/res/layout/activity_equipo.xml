@@ -6,10 +6,9 @@
 
     <!-- TOP BAR -->
     <include
-        android:id="@id/topBar"
+        android:id="@+id/topBar"
         layout="@layout/top_bar"/>
 
-    <!-- CONTENIDO -->
     <!-- CONTENIDO CENTRAL -->
     <ScrollView
         android:layout_width="match_parent"
@@ -27,14 +26,14 @@
             <!-- HEADER EQUIPO -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"> <!-- Ajusta la altura según necesites -->
+                android:layout_height="250dp">
 
                 <!-- Imagen de fondo -->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/fondo" /> <!-- Cambia por tu imagen -->
+                    android:src="@drawable/fondo" />
 
                 <!-- Contenido encima del fondo -->
                 <LinearLayout
@@ -115,12 +114,11 @@
                 </LinearLayout>
             </FrameLayout>
 
-
             <!-- TABS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@android:color/white"
+                android:background="@color/negro_secciones"
                 android:orientation="horizontal">
 
                 <TextView
@@ -130,7 +128,8 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="Noticias" />
+                    android:text="Noticias"
+                    android:textColor="@android:color/white" />
 
                 <TextView
                     android:id="@+id/tabPartidos"
@@ -139,7 +138,8 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="Partidos" />
+                    android:text="Partidos"
+                    android:textColor="@android:color/white" />
 
                 <TextView
                     android:id="@+id/tabJugadores"
@@ -148,7 +148,8 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="Jugadores" />
+                    android:text="Jugadores"
+                    android:textColor="@android:color/white" />
 
                 <TextView
                     android:id="@+id/tabClasificacion"
@@ -157,7 +158,8 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="Clasificación" />
+                    android:text="Clasificación"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
             <!-- CONTENIDOS -->
@@ -175,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/white"
+                    android:background="@color/negro_secciones"
                     android:orientation="horizontal"
                     android:padding="12dp">
 
@@ -183,6 +185,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@android:color/white"
                         android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
 
                     <ImageView
@@ -198,7 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/white"
+                    android:background="@color/negro_secciones"
                     android:orientation="horizontal"
                     android:padding="12dp">
 
@@ -206,6 +209,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@android:color/white"
                         android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
 
                     <ImageView
@@ -221,7 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@android:color/white"
+                    android:background="@color/negro_secciones"
                     android:orientation="horizontal"
                     android:padding="12dp">
 
@@ -229,6 +233,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@android:color/white"
                         android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
 
                     <ImageView
@@ -250,6 +255,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:text="Contenido de partidos" />
             </LinearLayout>
 
@@ -264,6 +270,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:text="Contenido de jugadores" />
             </LinearLayout>
 
@@ -278,17 +285,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:text="Contenido de clasificación" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
-
     <!-- BOTTOM NAV -->
     <include
         android:id="@+id/bottomBar"
         layout="@layout/bottom_bar"/>
-
 
 </RelativeLayout>

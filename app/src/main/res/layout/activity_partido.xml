@@ -9,8 +9,7 @@
         android:id="@+id/topBar"
         layout="@layout/top_bar"/>
 
-
-    <!-- 🔥 HEADER AJUSTADO DEBAJO DEL TOPBAR -->
+    <!-- HEADER DE JUEGO -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -39,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:text="21:00"
-                android:textColor="#ffff"
+                android:textColor="@android:color/white"
                 android:textSize="32sp"
                 android:textStyle="bold"/>
 
@@ -61,20 +60,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="110dp"
                 android:text="Equipo 1"
-                android:textColor="#fff"
+                android:textColor="@android:color/white"
                 android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Equipo 2"
-                android:textColor="#fff"
+                android:textColor="@android:color/white"
                 android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
 
-
-    <!-- TÍTULO ALINEACIÓN DEBAJO DEL HEADER -->
+    <!-- TÍTULO ALINEACIÓN -->
     <TextView
         android:id="@+id/tituloAlineacion"
         android:layout_width="wrap_content"
@@ -82,13 +80,12 @@
         android:text="ALINEACIÓN"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:textColor="#fff"
+        android:textColor="@android:color/white"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
         android:layout_below="@id/header"/>
 
-
-    <!-- SELECTOR EQUIPOS DEBAJO DEL TÍTULO -->
+    <!-- SELECTOR EQUIPOS -->
     <LinearLayout
         android:id="@+id/selectorEquipos"
         android:layout_width="match_parent"
@@ -104,21 +101,22 @@
             android:layout_weight="1"
             android:text="Equipo 1"
             android:textAllCaps="false"
-            android:background="#9E9E9E"
-            android:textColor="#FFFFFF"/>
+            android:background="@drawable/borde"
+            android:textColor="@android:color/white"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="Equipo 2"
             android:layout_marginStart="8dp"
+            android:text="Equipo 2"
             android:textAllCaps="false"
-            android:background="#CFCFCF"/>
+            android:background="@drawable/borde"
+            android:backgroundTint="@color/gris_texto"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
-
-    <!-- SCROLL VIEW DEBAJO DEL SELECTOR -->
+    <!-- SCROLLVIEW DE JUGADORES -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -132,96 +130,176 @@
             android:orientation="vertical"
             android:padding="12dp">
 
-        <!-- JUGADOR 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="@android:color/white"
-            android:layout_marginBottom="8dp">
+            <!-- JUGADOR 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@color/negro_secciones"
+                android:layout_marginBottom="8dp">
 
-            <ImageView
-                android:id="@+id/seleccion_j1"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_launcher_foreground"/>
+                <ImageView
+                    android:id="@+id/seleccion_j1"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_launcher_foreground"/>
 
-            <TextView android:text="9" android:textSize="18sp" android:textColor="#000" android:layout_marginStart="12dp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-            <TextView android:text="Manuel Herrera" android:textSize="16sp" android:textColor="#000" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="12dp" android:layout_height="wrap_content" />
-            <Button android:text="DEL" android:textAllCaps="false" android:layout_width="62dp" android:layout_height="wrap_content" android:background="#D6D6D6"/>
-        </LinearLayout>
+                <TextView
+                    android:text="9"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
 
+                <TextView
+                    android:text="Manuel Herrera"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content" />
 
-        <!-- JUGADOR 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="@android:color/white"
-            android:layout_marginBottom="8dp">
+                <Button
+                    android:text="DEL"
+                    android:textAllCaps="false"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gris_texto"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/seleccion_j2"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_launcher_foreground"/>
+            <!-- JUGADOR 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@color/negro_secciones"
+                android:layout_marginBottom="8dp">
 
-            <TextView android:text="7" android:textSize="18sp" android:textColor="#000" android:layout_marginStart="12dp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-            <TextView android:text="Lucas Romero" android:textSize="16sp" android:textColor="#000" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="12dp" android:layout_height="wrap_content" />
-            <Button android:text="MED" android:textAllCaps="false" android:layout_width="62dp" android:layout_height="wrap_content" android:background="#D6D6D6"/>
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/seleccion_j2"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_launcher_foreground"/>
 
+                <TextView
+                    android:text="7"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
 
-        <!-- JUGADOR 3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="@android:color/white"
-            android:layout_marginBottom="8dp">
+                <TextView
+                    android:text="Lucas Romero"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content" />
 
-            <ImageView
-                android:id="@+id/seleccion_j3"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_launcher_foreground"/>
+                <Button
+                    android:text="MED"
+                    android:textAllCaps="false"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gris_texto"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
 
-            <TextView android:text="3" android:textSize="18sp" android:textColor="#000" android:layout_marginStart="12dp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-            <TextView android:text="Diego Fernández" android:textSize="16sp" android:textColor="#000" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="12dp" android:layout_height="wrap_content" />
-            <Button android:text="DEF" android:textAllCaps="false" android:layout_width="62dp" android:layout_height="wrap_content" android:background="#D6D6D6"/>
-        </LinearLayout>
+            <!-- JUGADOR 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@color/negro_secciones"
+                android:layout_marginBottom="8dp">
 
+                <ImageView
+                    android:id="@+id/seleccion_j3"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_launcher_foreground"/>
 
-        <!-- JUGADOR 4 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="@android:color/white">
+                <TextView
+                    android:text="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
 
-            <ImageView
-                android:id="@+id/seleccion_j4"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_launcher_foreground"/>
+                <TextView
+                    android:text="Diego Fernández"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content" />
 
-            <TextView android:text="1" android:textSize="18sp" android:textColor="#000" android:layout_marginStart="12dp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-            <TextView android:text="Pablo Salas" android:textSize="16sp" android:textColor="#000" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="12dp" android:layout_height="wrap_content" />
-            <Button android:text="POR" android:textAllCaps="false" android:layout_width="62dp" android:layout_height="wrap_content" android:background="#D6D6D6"/>
-        </LinearLayout>
+                <Button
+                    android:text="DEF"
+                    android:textAllCaps="false"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gris_texto"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+            <!-- JUGADOR 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@color/negro_secciones">
+
+                <ImageView
+                    android:id="@+id/seleccion_j4"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_launcher_foreground"/>
+
+                <TextView
+                    android:text="1"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <TextView
+                    android:text="Pablo Salas"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:text="POR"
+                    android:textAllCaps="false"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gris_texto"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
 
     <!-- BOTTOM NAV -->
     <include

@@ -1,13 +1,10 @@
 package com.example.piandroidstudio
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 data class Partido(
     val equipoLocal: String,
@@ -30,43 +27,30 @@ class PartidosActivity : AppCompatActivity() {
 
         setupBottomBar(R.id.bottomBar)
 
-        val rvEquiposSeguidos: RecyclerView = findViewById(R.id.rvEquiposSeguidos)
-        val rvTodosPartidos: RecyclerView = findViewById(R.id.rvTodosPartidos)
+        val layoutSeguidos: LinearLayout = findViewById(R.id.layoutEquiposSeguidos)
+        val layoutTodos: LinearLayout = findViewById(R.id.layoutTodosPartidos)
 
         // Filtrar partidos de los equipos seguidos
         val partidosSeguidos = todosPartidos.filter {
             equiposSeguidos.contains(it.equipoLocal) || equiposSeguidos.contains(it.equipoVisitante)
         }
 
-        // Configurar RecyclerViews
-        rvEquiposSeguidos.layoutManager = LinearLayoutManager(this)
-        rvEquiposSeguidos.adapter = PartidoAdapter(partidosSeguidos)
+        // Inflar partidos seguidos
+        partidosSeguidos.forEach { partido ->
+            val view = LayoutInflater.from(this).inflate(R.layout.item_partido, layoutSeguidos, false)
+            view.findViewById<TextView>(R.id.txtEquipoLocal).text = partido.equipoLocal
+            view.findViewById<TextView>(R.id.txtEquipoVisitante).text = partido.equipoVisitante
+            view.findViewById<TextView>(R.id.txtHora).text = partido.hora
+            layoutSeguidos.addView(view)
+        }
 
-        rvTodosPartidos.layoutManager = LinearLayoutManager(this)
-        rvTodosPartidos.adapter = PartidoAdapter(todosPartidos)
-    }
-}
-
-// Adapter único para ambos RecyclerViews
-class PartidoAdapter(private val partidos: List<Partido>) : RecyclerView.Adapter<PartidoAdapter.PartidoViewHolder>() {
-
-    class PartidoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val txtLocal: TextView = itemView.findViewById(R.id.txtEquipoLocal)
-        val txtVisitante: TextView = itemView.findViewById(R.id.txtEquipoVisitante)
-        val txtHora: TextView = itemView.findViewById(R.id.txtHora)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartidoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_partido, parent, false)
-        return PartidoViewHolder(view)
-    }
-
-    override fun getItemCount(): Int = partidos.size
-
-    override fun onBindViewHolder(holder: PartidoViewHolder, position: Int) {
-        val partido = partidos[position]
-        holder.txtLocal.text = partido.equipoLocal
-        holder.txtVisitante.text = partido.equipoVisitante
-        holder.txtHora.text = partido.hora
+        // Inflar todos los partidos
+        todosPartidos.forEach { partido ->
+            val view = LayoutInflater.from(this).inflate(R.layout.item_partido, layoutTodos, false)
+            view.findViewById<TextView>(R.id.txtEquipoLocal).text = partido.equipoLocal
+            view.findViewById<TextView>(R.id.txtEquipoVisitante).text = partido.equipoVisitante
+            view.findViewById<TextView>(R.id.txtHora).text = partido.hora
+            layoutTodos.addView(view)
+        }
     }
 }

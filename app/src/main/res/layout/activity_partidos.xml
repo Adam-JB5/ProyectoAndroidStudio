@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F2F2">
+    android:background="@color/negro_fondo">
 
     <!-- TOP BAR -->
     <include
@@ -23,11 +23,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <!-- Botones de filtros -->
-            <Button android:id="@+id/btnTodos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Todos" android:layout_marginEnd="8dp"/>
-            <Button android:id="@+id/btnBarcelona" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Barcelona" android:layout_marginEnd="8dp"/>
-            <Button android:id="@+id/btnAtMadrid" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="At. Madrid" android:layout_marginEnd="8dp"/>
-            <Button android:id="@+id/btnRacing" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Racing"/>
+
+            <!-- Botones de filtros adaptando ancho al texto -->
+            <Button
+                android:id="@+id/btnTodos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todos"
+                android:layout_marginEnd="8dp"
+                android:background="@color/negro_secciones"
+                android:textColor="@android:color/white"
+                android:minWidth="0dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:includeFontPadding="false"/>
+
+            <Button
+                android:id="@+id/btnBarcelona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Barcelona"
+                android:layout_marginEnd="8dp"
+                android:background="@color/negro_secciones"
+                android:textColor="@android:color/white"
+                android:minWidth="0dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:includeFontPadding="false"/>
+
+            <Button
+                android:id="@+id/btnAtMadrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="At. Madrid"
+                android:layout_marginEnd="8dp"
+                android:background="@color/negro_secciones"
+                android:textColor="@android:color/white"
+                android:minWidth="0dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:includeFontPadding="false"/>
+
+            <Button
+                android:id="@+id/btnRacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Racing"
+                android:background="@color/negro_secciones"
+                android:textColor="@android:color/white"
+                android:minWidth="0dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:includeFontPadding="false"/>
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -38,44 +85,55 @@
         android:layout_height="match_parent"
         android:layout_below="@id/filtrosScroll"
         android:layout_above="@id/bottomBar"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/negro_fondo">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- EQUIPOS SEGUIDOS -->
+            <!-- EQUIPOS SEGUIDOS (temporal, sin RecyclerView) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Equipos seguidos"
                 android:textStyle="bold"
                 android:textSize="16sp"
+                android:textColor="@android:color/white"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvEquiposSeguidos"
+            <!-- Lista simulada -->
+            <LinearLayout
+                android:id="@+id/layoutEquiposSeguidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                android:orientation="vertical">
+                <include layout="@layout/item_partido"/>
+                <include layout="@layout/item_partido"/>
+            </LinearLayout>
 
-            <!-- TODOS LOS PARTIDOS -->
+            <!-- TODOS LOS PARTIDOS (temporal, sin RecyclerView) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Todos los partidos"
                 android:textStyle="bold"
                 android:textSize="16sp"
+                android:textColor="@android:color/white"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="4dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTodosPartidos"
+            <!-- Lista simulada -->
+            <LinearLayout
+                android:id="@+id/layoutTodosPartidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                android:orientation="vertical">
+                <include layout="@layout/item_partido"/>
+                <include layout="@layout/item_partido"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

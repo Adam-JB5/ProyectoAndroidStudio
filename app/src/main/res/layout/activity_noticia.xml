@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/negro_fondo">
+
+    <!-- TOP BAR -->
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/top_bar"/>
+
+    <!-- CONTENT -->
+    <ScrollView
+        android:id="@+id/scrollNoticia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/bottomBar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- IMAGEN NOTICIA -->
+            <ImageView
+                android:id="@+id/imgNoticia"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:background="@color/negro_secciones"/>
+
+            <!-- TITULO -->
+            <TextView
+                android:id="@+id/txtTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Título de la noticia"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"/>
+
+            <!-- SUBTITULO -->
+            <TextView
+                android:id="@+id/txtSubtitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subtítulo de la noticia"
+                android:textColor="#CCCCCC"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"/>
+
+            <!-- INFO (EQUIPO + FECHA) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/txtEquipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Equipo"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" • "
+                    android:textColor="#AAAAAA"/>
+
+                <TextView
+                    android:id="@+id/txtFecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01/01/2025"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!-- CONTENIDO -->
+            <TextView
+                android:id="@+id/txtContenido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contenido completo de la noticia..."
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SEPARADOR -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="16dp"
+                android:background="#333333"/>
+
+            <!-- COMENTARIOS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COMENTARIOS"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <!-- NUEVO COMENTARIO -->
+            <EditText
+                android:id="@+id/edtComentario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe un comentario..."
+                android:textColor="@android:color/white"
+                android:textColorHint="#888888"
+                android:background="@color/negro_secciones"
+                android:padding="12dp"
+                android:layout_marginTop="12dp"/>
+
+            <Button
+                android:id="@+id/btnEnviarComentario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enviar"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"/>
+
+            <!-- LISTA DE COMENTARIOS -->
+            <LinearLayout
+                android:id="@+id/containerComentarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
+
+                <!-- Comentario ejemplo -->
+                <include
+                    android:id="@+id/comentarioEjemplo"
+                    layout="@layout/item_comentario"/>
+
+                <include
+                    android:id="@+id/comentarioEjemplo"
+                    layout="@layout/item_comentario"/>
+
+                <include
+                    android:id="@+id/comentarioEjemplo"
+                    layout="@layout/item_comentario"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM BAR -->
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/bottom_bar"/>
+
+</RelativeLayout>

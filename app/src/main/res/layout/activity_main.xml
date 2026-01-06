@@ -71,26 +71,17 @@
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"/>
 
-            <!-- NEWS ITEMS -->
+            <!-- CONTENEDOR DE NOTICIAS -->
             <LinearLayout
-                android:id="@+id/noticia1"
+                android:id="@+id/contenedorNoticias"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <include layout="@layout/item_noticia"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/noticia2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <include layout="@layout/item_noticia"/>
-            </LinearLayout>
+                <include layout="@layout/item_noticia"/>
+                <include layout="@layout/item_noticia"/>
 
-            <LinearLayout
-                android:id="@+id/noticia3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <include layout="@layout/item_noticia"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -118,6 +109,7 @@
     <include
         layout="@layout/menu_user"
         android:layout_width="280dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

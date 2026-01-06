@@ -29,7 +29,7 @@ fun Activity.setupTopBarOverlay() {
             menuRight.visibility = View.GONE
         }
         overlay.visibility = View.GONE
-        scroll.isEnabled = true
+        scroll?.isEnabled = true // <- null safe
     }
 
     btnMenu.setOnClickListener {
@@ -37,7 +37,7 @@ fun Activity.setupTopBarOverlay() {
         menuLeft.visibility = View.VISIBLE
         menuLeft.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left))
         overlay.visibility = View.VISIBLE
-        scroll.isEnabled = false
+        scroll?.isEnabled = false
     }
 
     btnUsuario.setOnClickListener {
@@ -45,7 +45,7 @@ fun Activity.setupTopBarOverlay() {
         menuRight.visibility = View.VISIBLE
         menuRight.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right))
         overlay.visibility = View.VISIBLE
-        scroll.isEnabled = false
+        scroll?.isEnabled = false
     }
 
     overlay.setOnClickListener { closeMenus() }

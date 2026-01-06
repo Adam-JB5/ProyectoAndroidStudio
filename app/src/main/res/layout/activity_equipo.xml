@@ -297,4 +297,21 @@
         android:id="@+id/bottomBar"
         layout="@layout/bottom_bar"/>
 
+    <!-- Menus y overlay -->
+    <include
+        layout="@layout/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include
+        layout="@layout/menu_menu"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"/>
+
+    <include
+        layout="@layout/menu_user"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"/>
+
 </RelativeLayout>

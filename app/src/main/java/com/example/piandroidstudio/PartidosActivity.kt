@@ -25,6 +25,8 @@ class PartidosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partidos)
 
+        setupTopBarOverlay()
+
         setupBottomBar(R.id.bottomBar)
 
         val layoutSeguidos: LinearLayout = findViewById(R.id.layoutEquiposSeguidos)

@@ -1,6 +1,8 @@
 package com.example.piandroidstudio
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,13 @@ class MainActivity : AppCompatActivity() {
         //BOTTOM BAR
         setupBottomBar(R.id.bottomBar)
 
+        val contenedorNoticias = findViewById<LinearLayout>(R.id.contenedorNoticias)
+
+        for (i in 0 until contenedorNoticias.childCount) {
+            contenedorNoticias.getChildAt(i).setOnClickListener {
+                startActivity(Intent(this, NoticiaActivity::class.java))
+            }
+        }
 
     }
 }

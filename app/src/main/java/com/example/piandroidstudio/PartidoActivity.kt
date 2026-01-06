@@ -13,6 +13,8 @@ class PartidoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partido) // tu XML adaptado
 
+        setupTopBarOverlay()
+
         setupBottomBar(R.id.bottomBar)
 
         // Lista de ImageViews que funcionan como "checkbox visual"

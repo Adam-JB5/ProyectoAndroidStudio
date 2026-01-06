@@ -5,7 +5,9 @@
     android:orientation="horizontal"
     android:padding="12dp"
     android:background="@color/negro_secciones"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <!-- Texto de la noticia -->
     <LinearLayout

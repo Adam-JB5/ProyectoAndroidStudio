@@ -1,6 +1,5 @@
 package com.example.piandroidstudio
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +12,8 @@ class EquiposActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_equipos)
 
-        // ---------------- BOTTOM NAV ----------------
+        setupTopBarOverlay()
+
         setupBottomBar(R.id.bottomBar)
 
         // ----------------  GRUPOS DESPLEGABLES ----------------

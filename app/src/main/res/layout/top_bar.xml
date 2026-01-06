@@ -32,14 +32,14 @@
             android:layout_weight="1"/>
 
         <!-- Logo / texto de marca al centro -->
-        <TextView
-            android:id="@+id/txtLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="North Football"
-            android:textColor="@color/blanco"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Logo"/>
+
 
         <!-- Espacio flexible -->
         <Space

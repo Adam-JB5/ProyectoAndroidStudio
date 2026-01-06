@@ -1,11 +1,11 @@
 package com.example.piandroidstudio
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import android.graphics.Color
-import android.view.View
 
 class EquipoActivity : AppCompatActivity() {
 
@@ -22,6 +22,8 @@ class EquipoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_equipo) // ← CAMBIA POR TU XML REAL
+
+        setupTopBarOverlay()
 
         setupBottomBar(R.id.bottomBar)
 

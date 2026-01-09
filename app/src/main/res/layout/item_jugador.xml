@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:background="@color/gris_texto"
         android:gravity="center"
-        android:paddingVertical="5dp"
+        android:paddingVertical="6dp"
         android:text="DEL"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

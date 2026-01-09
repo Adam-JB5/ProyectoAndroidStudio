@@ -16,6 +16,19 @@ class MainActivity : AppCompatActivity() {
         //BOTTOM BAR
         setupBottomBar(R.id.bottomBar)
 
+
+        val contenedorPartidos = findViewById<LinearLayout>(R.id.contenedorPartidos)
+
+        for (i in 0 until contenedorPartidos.childCount) {
+            val partidoView = contenedorPartidos.getChildAt(i)
+
+            partidoView.isClickable = true
+            partidoView.setOnClickListener {
+                startActivity(Intent(this, PartidoActivity::class.java))
+            }
+        }
+
+
         val contenedorNoticias = findViewById<LinearLayout>(R.id.contenedorNoticias)
 
         for (i in 0 until contenedorNoticias.childCount) {

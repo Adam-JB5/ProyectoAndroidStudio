@@ -12,7 +12,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Usuario"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -21,7 +21,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/navPerfil"
         android:text="Perfil"
         android:textColor="@color/blanco"
@@ -29,7 +29,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/navLogout"
         android:text="Cerrar sesión"
         android:textColor="@color/blanco"

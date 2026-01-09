@@ -13,6 +13,12 @@
         android:theme="@style/Theme.PIAndroidStudio">
 
         <activity
+            android:name=".ConfiguracionActivity"
+            android:exported="true"
+            android:label="Configuración"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
+        <activity
             android:name=".NoticiaActivity"
             android:exported="true"
             android:label="Noticia"

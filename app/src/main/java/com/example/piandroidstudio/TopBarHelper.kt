@@ -55,4 +55,9 @@ fun Activity.setupTopBarOverlay() {
         startActivity(Intent(this, MainActivity::class.java))
         closeMenus()
     }
+
+    findViewById<TextView>(R.id.navConfiguracion)?.setOnClickListener {
+        startActivity(Intent(this, ConfiguracionActivity::class.java))
+        closeMenus()
+    }
 }

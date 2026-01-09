@@ -171,77 +171,9 @@
                 android:padding="8dp"
                 android:visibility="visible">
 
-                <!-- NEWS ITEM -->
-                <LinearLayout
-                    android:id="@+id/newsItem1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/negro_secciones"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@android:color/white"
-                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:background="#DDDDDD"
-                        android:src="@android:drawable/ic_menu_gallery" />
-                </LinearLayout>
-
-                <!-- NEWS ITEM -->
-                <LinearLayout
-                    android:id="@+id/newsItem2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/negro_secciones"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@android:color/white"
-                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:background="#DDDDDD"
-                        android:src="@android:drawable/ic_menu_gallery" />
-                </LinearLayout>
-
-                <!-- NEWS ITEM -->
-                <LinearLayout
-                    android:id="@+id/newsItem3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/negro_secciones"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@android:color/white"
-                        android:text="Lorem ipsum dolor sit amet et delectus accommodare his" />
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:background="#DDDDDD"
-                        android:src="@android:drawable/ic_menu_gallery" />
-                </LinearLayout>
+                <include layout="@layout/item_noticia"/>
+                <include layout="@layout/item_noticia"/>
+                <include layout="@layout/item_noticia"/>
             </LinearLayout>
 
             <LinearLayout
@@ -257,6 +189,27 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:text="Contenido de partidos" />
+
+                <LinearLayout
+                    android:id="@+id/partido1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/item_partido"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/partido2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/item_partido"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/partido3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/item_partido"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

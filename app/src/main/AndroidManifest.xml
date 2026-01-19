@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PIAndroidStudio">
 
+
         <activity
             android:name=".ConfiguracionActivity"
             android:exported="true"

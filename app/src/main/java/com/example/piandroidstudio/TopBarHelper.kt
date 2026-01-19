@@ -60,4 +60,13 @@ fun Activity.setupTopBarOverlay() {
         startActivity(Intent(this, ConfiguracionActivity::class.java))
         closeMenus()
     }
+
+    findViewById<TextView>(R.id.navPerfil)?.setOnClickListener {
+        // Aquí abrimos el login/registro como modal
+        if (this is androidx.fragment.app.FragmentActivity) {
+            val loginDialog = LoginDialogFragment()
+            loginDialog.show(supportFragmentManager, "loginDialog")
+        }
+    }
+
 }

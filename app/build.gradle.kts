@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.piandroidstudio"
+    namespace = "com.example.northfutbol"
     compileSdk = 36
 
     defaultConfig {

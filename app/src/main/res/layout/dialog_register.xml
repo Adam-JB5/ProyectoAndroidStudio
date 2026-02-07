@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/negro_fondo"
+    android:padding="24dp"
+    android:elevation="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crear Cuenta"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/blanco"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/inputNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre completo"
+        android:inputType="textPersonName"
+        android:textColor="@color/blanco"
+        android:textColorHint="@color/gris_texto"
+        android:backgroundTint="@color/gris_texto"
+        android:layout_marginBottom="12dp"
+        android:maxLength="40"
+        android:autofillHints="name"/>
+
+    <EditText
+        android:id="@+id/inputRegisterEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/blanco"
+        android:textColorHint="@color/gris_texto"
+        android:backgroundTint="@color/gris_texto"
+        android:layout_marginBottom="12dp"
+        android:maxLength="100"
+        android:autofillHints="emailAddress"/>
+
+    <EditText
+        android:id="@+id/inputRegisterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:textColor="@color/blanco"
+        android:textColorHint="@color/gris_texto"
+        android:backgroundTint="@color/gris_texto"
+        android:layout_marginBottom="24dp"
+        android:maxLength="64"
+        android:autofillHints="password"/>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:backgroundTint="@color/negro"
+        android:textColor="@color/blanco"
+        android:padding="12dp"/>
+
+    <TextView
+        android:id="@+id/txtBackToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Ya tienes cuenta? Inicia sesión"
+        android:textColor="@color/azul"
+        android:textAlignment="center"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"/>
+
+</LinearLayout>

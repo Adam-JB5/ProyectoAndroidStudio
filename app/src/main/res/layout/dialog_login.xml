@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/blanco"
+    android:background="@color/negro_fondo"
     android:padding="24dp"
     android:elevation="8dp">
 
@@ -13,7 +13,7 @@
         android:text="Iniciar Sesión"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/negro"
+        android:textColor="@color/blanco"
         android:gravity="center"
         android:layout_marginBottom="16dp"/>
 
@@ -23,6 +23,9 @@
         android:layout_height="wrap_content"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
+        android:textColor="@color/blanco"
+        android:textColorHint="@color/gris_texto"
+        android:backgroundTint="@color/gris_texto"
         android:layout_marginBottom="12dp"
         android:autofillHints="emailAddress"/>
 
@@ -32,6 +35,9 @@
         android:layout_height="wrap_content"
         android:hint="Contraseña"
         android:inputType="textPassword"
+        android:textColor="@color/blanco"
+        android:textColorHint="@color/gris_texto"
+        android:backgroundTint="@color/gris_texto"
         android:layout_marginBottom="16dp"
         android:autofillHints="password"/>
 

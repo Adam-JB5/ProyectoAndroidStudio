@@ -47,6 +47,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(files("libs\\POJOSNorthFutbol.jar"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

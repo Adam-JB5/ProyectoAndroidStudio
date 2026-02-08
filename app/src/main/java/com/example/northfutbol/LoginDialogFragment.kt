@@ -1,11 +1,20 @@
 package com.example.northfutbol
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pojosnorthfutbol.Usuario
 
 class LoginDialogFragment : DialogFragment() {
 
@@ -24,7 +33,42 @@ class LoginDialogFragment : DialogFragment() {
 
             // TODO: aquí va la validación del login (backend o Firebase)
 
-            dismiss() // cerrar modal
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+
+                // 1. Creamos un usuario "temporal" con las credenciales
+                val loginDatos = Usuario().apply {
+                    setEmail(email)
+                    setContrasenna(password)
+                }
+
+                // 2. Peticion de tipo LOGIN
+                val peticion = Peticion(Peticion.TipoOperacion.LOGIN, 0, loginDatos)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val respuesta = ClienteSocket(
+                            ClienteConfig.getServerIP(),
+                            ClienteConfig.PUERTO_SERVIDOR
+                        )
+                            .enviarPeticion(peticion)
+
+                        withContext(Dispatchers.Main) {
+                            if (respuesta?.isExito == true) {
+                                Toast.makeText(context, "¡Bienvenido, ${respuesta.usuario.nombre}!", Toast.LENGTH_SHORT).show()
+                                dismiss()
+                            } else {
+                                Toast.makeText(context, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
+
         }
 
         //txtSwitchRegister.setOnClickListener {

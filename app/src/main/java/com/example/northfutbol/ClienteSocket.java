@@ -66,9 +66,9 @@ public class ClienteSocket {
         } finally {
             // Cerramos
             try {
-                oos.close();
-                ois.close();
-                socket.close();
+                if (oos != null) oos.close();
+                if (ois != null) ois.close();
+                if (socket != null) socket.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

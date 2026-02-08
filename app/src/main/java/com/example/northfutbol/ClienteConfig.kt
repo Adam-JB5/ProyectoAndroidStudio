@@ -13,7 +13,7 @@ object ClienteConfig {
      * Esta clase centraliza la configuracion de red de la app
      */
 
-    val ENTORNO_ACTUAL = Entorno.NORMAL
+    val ENTORNO_ACTUAL = Entorno.REMOTO
 
     // Establecemos la IP del servidor en funcion del entorno
     fun getServerIP(): String {
@@ -23,7 +23,7 @@ object ClienteConfig {
 
             // IP de nuestro PC: conexión desde la
             // red o la publica desde fuera (192...)
-            Entorno.REMOTO -> "172.16.50.100"
+            Entorno.REMOTO -> "192.168.1.6"
         }
     }
 

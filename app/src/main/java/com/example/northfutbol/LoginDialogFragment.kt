@@ -42,7 +42,7 @@ class LoginDialogFragment : DialogFragment() {
                 }
 
                 // 2. Peticion de tipo LOGIN
-                val peticion = Peticion(Peticion.TipoOperacion.LOGIN, 0, loginDatos)
+                val peticion = Peticion(Peticion.TipoOperacion.LOGIN, 0, loginDatos) //TODO probablemente quitar el 0, para usar el constructor de 2 params
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -71,11 +71,11 @@ class LoginDialogFragment : DialogFragment() {
 
         }
 
-        //txtSwitchRegister.setOnClickListener {
-        //    val registerDialog = RegisterDialogFragment()
-        //    registerDialog.show(parentFragmentManager, "registerDialog")
-        //    dismiss()
-        //}
+        txtSwitchRegister.setOnClickListener {
+            val registerDialog = RegisterDialogFragment()
+            registerDialog.show(parentFragmentManager, "registerDialog")
+            dismiss()
+        }
 
         return view
     }

@@ -10,6 +10,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pojosnorthfutbol.Usuario
 
 class RegisterDialogFragment : DialogFragment() {
 
@@ -33,20 +38,72 @@ class RegisterDialogFragment : DialogFragment() {
             val password = inputPassword.text.toString().trim()
 
             if (nombre.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show()
-            } else {
-                // AQUÍ LA LÓGICA PARA TU TABLA "USUARIO"
-                // 1. ROL: Siempre enviar "U" por defecto
-                val rol = "R"
-
-                // 2. PASSWORD: Aquí deberías aplicar un hash SHA-256
-                // para que coincida con tu columna CHAR(64)
-
-                // TODO: Llamada a tu API o DatabaseHelper para el INSERT
-
-                Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                dismiss()
+                Toast.makeText(context, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
             }
+
+            btnRegister.isEnabled = false
+            btnRegister.text = "Registrando..."
+
+            // 1️⃣ Crear usuario con los datos
+            val nuevoUsuario = Usuario().apply {
+                setNombre(nombre)
+                setEmail(email)
+                setContrasenna(password)   // TODO hashear la contrasenna
+                setRol("R")                // Rol por defecto
+                setFotoPerfil(null)
+            }
+
+            // 2️⃣ Crear petición REGISTER
+            val peticion = Peticion(
+                Peticion.TipoOperacion.REGISTER,
+                nuevoUsuario
+            )
+
+            // 3️⃣ Enviar petición al backend (igual que login)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+
+                    val respuesta = ClienteSocket(
+                        ClienteConfig.getServerIP(),
+                        ClienteConfig.PUERTO_SERVIDOR
+                    ).enviarPeticion(peticion)
+
+                    withContext(Dispatchers.Main) {
+
+                        if (respuesta?.isExito == true) {
+
+                            Toast.makeText(
+                                context,
+                                "Usuario registrado correctamente",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            dismiss()
+
+                        } else {
+                            Toast.makeText(
+                                context,
+                                respuesta?.mensaje ?: "No se pudo registrar el usuario",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            restaurarBoton(btnRegister)
+                        }
+                    }
+
+                } catch (e: Exception) {
+
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show()
+                        restaurarBoton(btnRegister)
+                    }
+
+
+                }
+            }
+
         }
 
         txtBackToLogin.setOnClickListener {
@@ -56,6 +113,11 @@ class RegisterDialogFragment : DialogFragment() {
         }
 
         return view
+    }
+
+    private fun restaurarBoton(btn: Button) {
+        btn.isEnabled = true
+        btn.text = "Registrarse"
     }
 
     override fun onStart() {

@@ -37,23 +37,93 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/negro_secciones"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:layout_marginBottom="16dp">
 
+                <!-- FOTO PERFIL -->
+                <ImageView
+                    android:id="@+id/imgPerfil"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/user"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- NOMBRE -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de usuario"
+                    android:text="Nombre"
+                    android:textColor="@android:color/white"/>
+
+                <EditText
+                    android:id="@+id/editNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"/>
+                    android:textColorHint="@color/gris_texto"
+                    android:backgroundTint="@color/gris_texto"
+                    android:hint="Nombre"
+                    android:inputType="textPersonName"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- EMAIL -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="@android:color/white"/>
+
+                <EditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/gris_texto"
+                    android:backgroundTint="@color/gris_texto"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- ROL (solo lectura) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rol"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
+                    android:id="@+id/txtRol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Juanito"
+                    android:text="Usuario"
                     android:textColor="@color/gris_texto"
-                    android:textSize="13sp"
-                    android:layout_marginTop="4dp"/>
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- BOTONES -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnModificar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Modificar"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnBorrar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Borrar"
+                        android:backgroundTint="@android:color/holo_red_dark"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- AJUSTES -->

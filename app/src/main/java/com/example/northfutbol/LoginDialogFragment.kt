@@ -56,6 +56,17 @@ class LoginDialogFragment : DialogFragment() {
 
                         withContext(Dispatchers.Main) {
                             if (respuesta?.isExito == true) {
+
+                                // Guardamos en SharedPreferences los datos del usuario
+                                // 🔥 GUARDAR USUARIO EN SHARED PREFERENCES
+                                val prefs = requireContext().getSharedPreferences("usuario", 0)
+                                val editor = prefs.edit()
+
+                                editor.putString("nombre", respuesta.usuario.nombre)
+                                editor.putString("email", respuesta.usuario.email)
+                                editor.putString("rol", respuesta.usuario.rol)
+                                editor.apply()
+
                                 Toast.makeText(context, "¡Bienvenido, ${respuesta.usuario.nombre}!", Toast.LENGTH_SHORT).show()
                                 dismiss()
                             } else {

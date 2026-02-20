@@ -37,6 +37,7 @@ class RegisterDialogFragment : DialogFragment() {
             val email = inputEmail.text.toString().trim()
             val password = inputPassword.text.toString().trim()
 
+            //TODO cambiar a isBlank() la validacion
             if (nombre.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(context, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT)
                     .show()

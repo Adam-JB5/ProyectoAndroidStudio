@@ -6,6 +6,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pojosnorthfutbol.Usuario
 
 class ConfiguracionActivity : AppCompatActivity() {
 
@@ -29,23 +34,76 @@ class ConfiguracionActivity : AppCompatActivity() {
         editEmail.setText(prefs.getString("email", ""))
         txtRol.text = prefs.getString("rol", "")
 
+        //TODO annadir actualizacion de la foto de perfil
         // BOTÓN MODIFICAR
         btnModificar.setOnClickListener {
 
             val nuevoNombre = editNombre.text.toString()
             val nuevoEmail = editEmail.text.toString()
 
+            if (nuevoNombre.isBlank() || nuevoEmail.isBlank()) {
+                Toast.makeText(this, "Campos vacíos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             // 🔥 Aquí deberías enviar también al servidor la modificación
+            // 1️⃣ Crear usuario con los datos
+            val nuevoUsuario = Usuario().apply {
+                setIdUsuario(prefs.getInt("idUsuario", 0))
+                setNombre(nuevoNombre)
+                setEmail(nuevoEmail)
+                //TODO annadir actualizacion de la foto de perfil
+                //setFotoPerfil(null)
+            }
 
+            // 2️⃣ Crear petición REGISTER
+            val peticion = Peticion(
+                Peticion.TipoOperacion.UPDATE_USER_NAME_EMAIL,
+                nuevoUsuario
+            )
 
-            prefs.edit()
-                .putString("nombre", nuevoNombre)
-                .putString("email", nuevoEmail)
-                .apply()
+            // 3️⃣ Enviar petición al backend (igual que login)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
 
-            Toast.makeText(this, "Datos actualizados", Toast.LENGTH_SHORT).show()
+                    val respuesta = ClienteSocket(
+                        ClienteConfig.getServerIP(),
+                        ClienteConfig.PUERTO_SERVIDOR
+                    ).enviarPeticion(peticion)
 
+                    withContext(Dispatchers.Main) {
 
+                        if (respuesta?.isExito == true) {
+
+                            Toast.makeText(
+                                this@ConfiguracionActivity,
+                                "Usuario modificado correctamente",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            prefs.edit()
+                                .putString("nombre", nuevoNombre)
+                                .putString("email", nuevoEmail)
+                                //TODO annadir actualizacion de la foto de perfil
+                                //.putString("fotoPerfil", nuevaFoto)
+                                .apply()
+
+                            Toast.makeText(this@ConfiguracionActivity, "Datos actualizados", Toast.LENGTH_SHORT).show()
+
+                        } else {
+                            Toast.makeText(
+                                this@ConfiguracionActivity,
+                                respuesta?.mensaje ?: "No se pudo registrar el usuario",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@ConfiguracionActivity, "Servidor no disponible", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         // BOTÓN BORRAR

@@ -62,9 +62,11 @@ class LoginDialogFragment : DialogFragment() {
                                 val prefs = requireContext().getSharedPreferences("usuario", 0)
                                 val editor = prefs.edit()
 
+                                editor.putInt("idUsuario", respuesta.usuario.idUsuario)
                                 editor.putString("nombre", respuesta.usuario.nombre)
                                 editor.putString("email", respuesta.usuario.email)
                                 editor.putString("rol", respuesta.usuario.rol)
+                                editor.putString("fotoPerfil", respuesta.usuario.fotoPerfil)
                                 editor.apply()
 
                                 Toast.makeText(context, "¡Bienvenido, ${respuesta.usuario.nombre}!", Toast.LENGTH_SHORT).show()

@@ -1,5 +1,6 @@
 package com.example.northfutbol
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -110,13 +111,55 @@ class ConfiguracionActivity : AppCompatActivity() {
         btnBorrar.setOnClickListener {
             // 🔥 Aquí deberías enviar petición DELETE al servidor
             // 🔥 Y redirigir al login
+            val idUsuario = prefs.getInt("idUsuario", 0)
 
+            // 1️⃣ Crear objeto Usuario con el ID para identificar qué borrar
+            val usuarioAEliminar = Usuario().apply {
+                setIdUsuario(idUsuario)
+            }
 
-            prefs.edit().clear().apply()
+            // 2️⃣ Crear la petición DELETE (asegúrate de que DELETE_USER existe en tu enum TipoOperacion)
+            val peticion = Peticion(
+                Peticion.TipoOperacion.DELETE,
+                usuarioAEliminar
+            )
 
-            Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
+            // 3️⃣ Ejecutar en segundo plano
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val respuesta = ClienteSocket(
+                        ClienteConfig.getServerIP(),
+                        ClienteConfig.PUERTO_SERVIDOR
+                    ).enviarPeticion(peticion)
 
+                    withContext(Dispatchers.Main) {
+                        if (respuesta?.isExito == true) {
+                            // 4️⃣ Limpiar datos locales
+                            prefs.edit().clear().apply()
 
+                            Toast.makeText(this@ConfiguracionActivity, "Cuenta eliminada correctamente", Toast.LENGTH_SHORT).show()
+
+                            // 5️⃣ Redirigir al Login y cerrar todas las actividades previas
+                            val intent =
+                                Intent(this@ConfiguracionActivity, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this@ConfiguracionActivity,
+                                respuesta?.mensaje ?: "Error al eliminar la cuenta",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@ConfiguracionActivity, "Error de conexión con el servidor", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
+        
     }
 }

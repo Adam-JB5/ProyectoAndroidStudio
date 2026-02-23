@@ -31,12 +31,12 @@ public class ClienteSocket {
     // Metodo principal
     // Retorna un NULL si hubo un error de conexión
     // o un objeto Respuesta si no
-    public Respuesta enviarPeticion(Peticion peticion) {
+    public RespuestaUsuario enviarPeticion(PeticionUsuario peticion) {
         // Declarar las variables de conexion
         Socket socket = null;
         ObjectInputStream ois = null; // Recibimos
         ObjectOutputStream oos = null; // Enviamos
-        Respuesta respuesta = null;
+        RespuestaUsuario respuesta = null;
 
         // Conectamos
         try {
@@ -56,7 +56,7 @@ public class ClienteSocket {
 
             // Esperamos a recibir un objeto
             // Respuesta
-            respuesta = (Respuesta) ois.readObject();
+            respuesta = (RespuestaUsuario) ois.readObject();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }  catch (IOException e) {

@@ -58,8 +58,8 @@ class ConfiguracionActivity : AppCompatActivity() {
             }
 
             // 2️⃣ Crear petición REGISTER
-            val peticion = Peticion(
-                Peticion.TipoOperacion.UPDATE_USER_NAME_EMAIL,
+            val peticion = PeticionUsuario(
+                PeticionUsuario.TipoOperacion.UPDATE_USER_NAME_EMAIL,
                 nuevoUsuario
             )
 
@@ -119,8 +119,8 @@ class ConfiguracionActivity : AppCompatActivity() {
             }
 
             // 2️⃣ Crear la petición DELETE (asegúrate de que DELETE_USER existe en tu enum TipoOperacion)
-            val peticion = Peticion(
-                Peticion.TipoOperacion.DELETE,
+            val peticion = PeticionUsuario(
+                PeticionUsuario.TipoOperacion.DELETE,
                 usuarioAEliminar
             )
 

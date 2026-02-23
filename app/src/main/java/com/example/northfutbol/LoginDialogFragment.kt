@@ -42,9 +42,10 @@ class LoginDialogFragment : DialogFragment() {
                 }
 
                 // 2. Peticion de tipo LOGIN
-                val peticion = Peticion(
-                    Peticion.TipoOperacion.LOGIN,
-                    loginDatos)
+                val peticion = PeticionUsuario(
+                    PeticionUsuario.TipoOperacion.LOGIN,
+                    loginDatos
+                )
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {

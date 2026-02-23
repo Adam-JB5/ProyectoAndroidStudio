@@ -57,8 +57,8 @@ class RegisterDialogFragment : DialogFragment() {
             }
 
             // 2️⃣ Crear petición REGISTER
-            val peticion = Peticion(
-                Peticion.TipoOperacion.REGISTER,
+            val peticion = PeticionUsuario(
+                PeticionUsuario.TipoOperacion.REGISTER,
                 nuevoUsuario
             )
 

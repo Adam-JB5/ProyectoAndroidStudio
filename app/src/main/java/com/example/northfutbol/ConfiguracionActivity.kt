@@ -67,7 +67,7 @@ class ConfiguracionActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
 
-                    val respuesta = ClienteSocket(
+                    val respuesta = ClienteSocketUsuario(
                         ClienteConfig.getServerIP(),
                         ClienteConfig.PUERTO_SERVIDOR
                     ).enviarPeticion(peticion)
@@ -127,7 +127,7 @@ class ConfiguracionActivity : AppCompatActivity() {
             // 3️⃣ Ejecutar en segundo plano
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val respuesta = ClienteSocket(
+                    val respuesta = ClienteSocketUsuario(
                         ClienteConfig.getServerIP(),
                         ClienteConfig.PUERTO_SERVIDOR
                     ).enviarPeticion(peticion)

@@ -49,7 +49,7 @@ class LoginDialogFragment : DialogFragment() {
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val respuesta = ClienteSocket(
+                        val respuesta = ClienteSocketUsuario(
                             ClienteConfig.getServerIP(),
                             ClienteConfig.PUERTO_SERVIDOR
                         )

@@ -17,13 +17,13 @@ import java.net.UnknownHostException;
  * 3. Espera a recibir un objeto "Respuesta".
  * 4. Cierra todas las conexiones y devuelve la respuesta
  */
-public class ClienteSocket {
+public class ClienteSocketNoticia {
     // 1. Conexion
     private String host;
     private int puerto;
 
     // Constructor
-    public ClienteSocket(String host, int puerto) {
+    public ClienteSocketNoticia(String host, int puerto) {
         this.puerto = puerto;
         this.host = host;
     }
@@ -31,12 +31,12 @@ public class ClienteSocket {
     // Metodo principal
     // Retorna un NULL si hubo un error de conexión
     // o un objeto Respuesta si no
-    public RespuestaUsuario enviarPeticion(PeticionUsuario peticion) {
+    public RespuestaNoticia enviarPeticion(PeticionNoticia peticion) {
         // Declarar las variables de conexion
         Socket socket = null;
         ObjectInputStream ois = null; // Recibimos
         ObjectOutputStream oos = null; // Enviamos
-        RespuestaUsuario respuesta = null;
+        RespuestaNoticia respuesta = null;
 
         // Conectamos
         try {
@@ -56,7 +56,7 @@ public class ClienteSocket {
 
             // Esperamos a recibir un objeto
             // Respuesta
-            respuesta = (RespuestaUsuario) ois.readObject();
+            respuesta = (RespuestaNoticia) ois.readObject();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }  catch (IOException e) {

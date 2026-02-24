@@ -66,7 +66,7 @@ class RegisterDialogFragment : DialogFragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
 
-                    val respuesta = ClienteSocket(
+                    val respuesta = ClienteSocketUsuario(
                         ClienteConfig.getServerIP(),
                         ClienteConfig.PUERTO_SERVIDOR
                     ).enviarPeticion(peticion)

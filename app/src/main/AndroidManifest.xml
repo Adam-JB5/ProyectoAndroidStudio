@@ -33,6 +33,11 @@
             android:label="Equipo"
             android:theme="@style/Theme.PIAndroidStudio"/>
 
+        <activity android:name=".CrearNoticiaActivity"
+            android:exported="true"
+            android:label="CrearNoticia"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
         <activity android:name=".EquiposActivity"
             android:exported="true"
             android:label="Equipos"

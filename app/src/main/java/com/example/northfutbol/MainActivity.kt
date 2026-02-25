@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         //BOTTOM BAR
         setupBottomBar(R.id.bottomBar)
 
-
         // 1. Cargar noticias desde el servidor
         cargarNoticiasDesdeServidor()
 

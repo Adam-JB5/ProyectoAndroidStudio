@@ -69,4 +69,9 @@ fun Activity.setupTopBarOverlay() {
         }
     }
 
+    findViewById<TextView>(R.id.navCrearNoticia)?.setOnClickListener {
+        startActivity(Intent(this, CrearNoticiaActivity::class.java))
+        closeMenus()
+    }
+
 }

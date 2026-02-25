@@ -57,7 +57,7 @@ class CrearNoticiaActivity : AppCompatActivity() {
     private fun initSupabase() {
         supabase = createSupabaseClient(
             supabaseUrl = "https://ppavafsxbifmcfhsbscs.supabase.co",
-            supabaseKey = "sb_secret_mNFmA2UO4WRHkGpnLojsqQ_Jyv6ajW3"
+            supabaseKey = ""
         ) {
             install(Postgrest)
             install(Storage)

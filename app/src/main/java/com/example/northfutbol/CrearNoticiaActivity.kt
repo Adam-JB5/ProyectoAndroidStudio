@@ -22,6 +22,9 @@ import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.storage.storage
+import pojosnorthfutbol.Equipo
+import pojosnorthfutbol.Noticia
+
 class CrearNoticiaActivity : AppCompatActivity() {
 
     // Declaración de variables para las vistas
@@ -72,14 +75,6 @@ class CrearNoticiaActivity : AppCompatActivity() {
         ivPreview = findViewById(R.id.ivPreview)
         spinnerEquipos = findViewById(R.id.spinnerEquipos)
         btnPublicar = findViewById(R.id.btnPublicar)
-    }
-
-    private fun setupSpinner() {
-        // Lista de ejemplo para el Spinner
-        val equipos = listOf("Global", "Equipo A", "Equipo B", "Equipo C")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, equipos)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerEquipos.adapter = adapter
     }
 
     private fun setupListeners() {
@@ -137,40 +132,96 @@ class CrearNoticiaActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun guardarNoticiaBD(urlImagen: String) {
-        val noticia = mapOf(
-            "titulo" to etTitulo.text.toString(),
-            "contenido" to etContenido.text.toString(),
-            "imagen_url" to urlImagen
-        )
+    // Necesitamos un mapa para saber qué ID corresponde a cada nombre del Spinner
+    private val mapaEquipos = mapOf(
+        "Global" to Equipo().apply { idEquipo = 1; nombre = "Global" },
+        "Equipo A" to Equipo().apply { idEquipo = 2; nombre = "Equipo A" },
+        "Equipo B" to Equipo().apply { idEquipo = 3; nombre = "Equipo B" },
+        "Equipo C" to Equipo().apply { idEquipo = 4; nombre = "Equipo C" }
+    )
 
-        supabase.from("noticias").insert(noticia)
-
-        runOnUiThread {
-            Toast.makeText(this, "Noticia publicada", Toast.LENGTH_SHORT).show()
-            finish()
-        }
+    private fun setupSpinner() {
+        val nombresEquipos = mapaEquipos.keys.toList()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombresEquipos)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerEquipos.adapter = adapter
     }
 
     private fun validarYPublicar() {
         val titulo = etTitulo.text.toString().trim()
         val contenido = etContenido.text.toString().trim()
+        val subtitulo = etSubtitulo.text.toString().trim()
 
-        if (titulo.isEmpty() || contenido.isEmpty()) {
-            Toast.makeText(this, "Campos obligatorios", Toast.LENGTH_SHORT).show()
+        // Obtenemos el nombre seleccionado en el Spinner
+        val nombreSeleccionado = spinnerEquipos.selectedItem.toString()
+
+        // Buscamos el objeto Equipo completo en nuestro mapa
+        val equipoSeleccionado = mapaEquipos[nombreSeleccionado]
+
+        if (titulo.isEmpty() || contenido.isEmpty() || imageUri == null || equipoSeleccionado == null) {
+            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
+        btnPublicar.isEnabled = false
+        btnPublicar.text = "Subiendo noticia..."
+
         lifecycleScope.launch {
-            val urlImagen = withContext(Dispatchers.IO) {
-                subirImagenSupabase()
-            }
+            val urlImagen = withContext(Dispatchers.IO) { subirImagenSupabase() }
 
             if (urlImagen != null) {
-                guardarNoticiaBD(urlImagen)
+                // Creamos la noticia
+                val noticia = Noticia().apply {
+                    this.titulo = titulo
+                    this.subtitulo = if (subtitulo.isEmpty()) null else subtitulo
+                    this.contenido = contenido
+                    this.imagen = urlImagen
+                    // IMPORTANTE: Aquí pasamos el objeto equipo completo
+                    this.equipo = equipoSeleccionado
+                }
+
+                enviarNoticiaAlServidor(noticia)
             } else {
-                Toast.makeText(this@CrearNoticiaActivity, "Error subiendo imagen", Toast.LENGTH_SHORT).show()
+                restaurarBoton()
+                Toast.makeText(this@CrearNoticiaActivity, "Error con la imagen", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private suspend fun enviarNoticiaAlServidor(noticia: Noticia) {
+        withContext(Dispatchers.IO) {
+            try {
+                // Creamos la petición similar a tu registro de usuario
+                val peticion = PeticionNoticia(
+                    PeticionNoticia.TipoOperacion.CREATE,
+                    noticia
+                )
+
+                val respuesta = ClienteSocketNoticia(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true) {
+                        Toast.makeText(this@CrearNoticiaActivity, "Noticia creada con éxito", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this@CrearNoticiaActivity, "Error: ${respuesta?.mensaje}", Toast.LENGTH_SHORT).show()
+                        restaurarBoton()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@CrearNoticiaActivity, "Servidor no disponible", Toast.LENGTH_SHORT).show()
+                    restaurarBoton()
+                }
+            }
+        }
+    }
+
+    private fun restaurarBoton() {
+        btnPublicar.isEnabled = true
+        btnPublicar.text = "PUBLICAR NOTICIA"
     }
 }

@@ -51,7 +51,8 @@ class CrearNoticiaActivity : AppCompatActivity() {
         initViews()
 
         // 3. Configurar Spinner de equipos (Ejemplo estático)
-        setupSpinner()
+        // En lugar de setupSpinner estático, cargamos de la BD
+        cargarEquiposDesdeServidor()
 
         // 4. Configurar Listeners
         setupListeners()
@@ -60,7 +61,7 @@ class CrearNoticiaActivity : AppCompatActivity() {
     private fun initSupabase() {
         supabase = createSupabaseClient(
             supabaseUrl = "https://ppavafsxbifmcfhsbscs.supabase.co",
-            supabaseKey = ""
+            supabaseKey = "sb_secret_mNFmA2UO4WRHkGpnLojsqQ_Jyv6ajW3"
         ) {
             install(Postgrest)
             install(Storage)
@@ -133,16 +134,50 @@ class CrearNoticiaActivity : AppCompatActivity() {
     }
 
     // Necesitamos un mapa para saber qué ID corresponde a cada nombre del Spinner
-    private val mapaEquipos = mapOf(
-        "Global" to Equipo().apply { idEquipo = 1; nombre = "Global" },
-        "Equipo A" to Equipo().apply { idEquipo = 2; nombre = "Equipo A" },
-        "Equipo B" to Equipo().apply { idEquipo = 3; nombre = "Equipo B" },
-        "Equipo C" to Equipo().apply { idEquipo = 4; nombre = "Equipo C" }
-    )
+    // Lista que guardará los objetos reales del servidor
+    private var listaEquiposBase: List<Equipo> = listOf()
 
-    private fun setupSpinner() {
-        val nombresEquipos = mapaEquipos.keys.toList()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombresEquipos)
+    // Mapa que asocia el NOMBRE (String) con el objeto EQUIPO completo
+    private var mapaEquiposDinamico = mutableMapOf<String, Equipo>()
+
+    private fun cargarEquiposDesdeServidor() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Asumiendo que usas PeticionNoticia o una Peticion específica para equipos
+                // Ajusta "READ_ALL_EQUIPOS" según lo tengas en tu servidor
+                val peticion = PeticionEquipo(PeticionEquipo.TipoOperacion.READ_ALL, null)
+
+                val respuesta = ClienteSocketEquipo(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true && respuesta.equipos != null) {
+                        listaEquiposBase = respuesta.equipos
+
+                        // Llenamos el mapa: Nombre -> Objeto Equipo
+                        mapaEquiposDinamico.clear()
+                        listaEquiposBase.forEach { equipo ->
+                            mapaEquiposDinamico[equipo.nombre] = equipo
+                        }
+
+                        actualizarSpinnerConDatosReales()
+                    } else {
+                        Toast.makeText(this@CrearNoticiaActivity, "Error al cargar equipos", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("ERROR", "Fallo al conectar para equipos: ${e.message}")
+                }
+            }
+        }
+    }
+
+    private fun actualizarSpinnerConDatosReales() {
+        val nombres = mapaEquiposDinamico.keys.toList()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombres)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerEquipos.adapter = adapter
     }
@@ -152,11 +187,10 @@ class CrearNoticiaActivity : AppCompatActivity() {
         val contenido = etContenido.text.toString().trim()
         val subtitulo = etSubtitulo.text.toString().trim()
 
-        // Obtenemos el nombre seleccionado en el Spinner
-        val nombreSeleccionado = spinnerEquipos.selectedItem.toString()
+        val nombreSeleccionado = spinnerEquipos.selectedItem?.toString() ?: ""
 
-        // Buscamos el objeto Equipo completo en nuestro mapa
-        val equipoSeleccionado = mapaEquipos[nombreSeleccionado]
+        // IMPORTANTE: Ahora usamos el mapa que se llenó desde la BD
+        val equipoSeleccionado = mapaEquiposDinamico[nombreSeleccionado]
 
         if (titulo.isEmpty() || contenido.isEmpty() || imageUri == null || equipoSeleccionado == null) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()

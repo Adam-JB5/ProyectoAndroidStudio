@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/home"/>
+            android:src="@drawable/home_ns"/>
 
         <TextView
             android:text="Inicio"
@@ -40,7 +40,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/field"/>
+            android:src="@drawable/field_ns"/>
 
         <TextView
             android:text="Partidos"
@@ -61,7 +61,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/team"/>
+            android:src="@drawable/team_ns"/>
 
         <TextView
             android:text="Equipos"
@@ -82,7 +82,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ranking"/>
+            android:src="@drawable/ranking_ns"/>
 
         <TextView
             android:text="Clasificación"

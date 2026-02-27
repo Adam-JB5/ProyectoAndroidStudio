@@ -14,7 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pojosnorthfutbol.Noticia
-
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,9 +92,13 @@ class MainActivity : AppCompatActivity() {
         // Asignamos datos
         titulo.text = noticia.titulo
         subtitulo.text = noticia.subtitulo
-
-        // Si usas Glide o Picasso para fotos:
-        // Glide.with(this).load(noticia.urlImagen).into(imagen)
+        Glide.with(this)
+            .load(noticia.imagen)
+            .placeholder(R.color.negro_secciones) // Un color sólido mientras carga
+            .error(android.R.drawable.ic_menu_report_image) // Icono si la URL falla
+            .transition(DrawableTransitionOptions.withCrossFade()) // Efecto de difuminado al aparecer
+            .centerCrop() // Asegura que llene el cuadrado de 60dp sin deformarse
+            .into(imagen)
 
         // Evento de clic para abrir la noticia completa
         viewNoticia.setOnClickListener {

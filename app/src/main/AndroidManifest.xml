@@ -53,6 +53,11 @@
             android:label="Partidos"
             android:theme="@style/Theme.PIAndroidStudio"/>
 
+        <activity android:name=".ClasificacionActivity"
+            android:exported="true"
+            android:label="Clasificacion"
+            android:theme="@style/Theme.PIAndroidStudio"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

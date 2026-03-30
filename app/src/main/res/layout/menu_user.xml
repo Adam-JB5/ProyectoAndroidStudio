@@ -22,8 +22,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/navPerfil"
-        android:text="Perfil"
+        android:id="@+id/navLogin"
+        android:text="Iniciar sesión"
+        android:textColor="@color/blanco"
+        android:paddingVertical="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/navConfiguracion"
+        android:text="Configuración"
         android:textColor="@color/blanco"
         android:paddingVertical="12dp"/>
 

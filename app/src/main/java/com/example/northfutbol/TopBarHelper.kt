@@ -50,18 +50,39 @@ fun Activity.setupTopBarOverlay() {
 
     overlay.setOnClickListener { closeMenus() }
 
-    // --- Navegación ejemplo ---
+    // --- Botones Menu Menu ---
     findViewById<TextView>(R.id.navInicio)?.setOnClickListener {
         startActivity(Intent(this, MainActivity::class.java))
         closeMenus()
     }
 
-    findViewById<TextView>(R.id.navConfiguracion)?.setOnClickListener {
-        startActivity(Intent(this, ConfiguracionActivity::class.java))
+    findViewById<TextView>(R.id.navPartidos)?.setOnClickListener {
+        startActivity(Intent(this, PartidosActivity::class.java))
         closeMenus()
     }
 
-    findViewById<TextView>(R.id.navPerfil)?.setOnClickListener {
+    findViewById<TextView>(R.id.navEquipos)?.setOnClickListener {
+        startActivity(Intent(this, EquiposActivity::class.java))
+        closeMenus()
+    }
+
+    findViewById<TextView>(R.id.navClasificacion)?.setOnClickListener {
+        startActivity(Intent(this, ClasificacionActivity::class.java))
+        closeMenus()
+    }
+
+//    findViewById<TextView>(R.id.nav)?.setOnClickListener {
+//        startActivity(Intent(this, Activity::class.java))
+//        closeMenus()
+//    }
+
+    findViewById<TextView>(R.id.navCrearNoticia)?.setOnClickListener {
+        startActivity(Intent(this, CrearNoticiaActivity::class.java))
+        closeMenus()
+    }
+
+    // --- Botones Menu Usuario ---
+    findViewById<TextView>(R.id.navLogin)?.setOnClickListener {
         // Aquí abrimos el login/registro como modal
         if (this is androidx.fragment.app.FragmentActivity) {
             val loginDialog = LoginDialogFragment()
@@ -69,9 +90,13 @@ fun Activity.setupTopBarOverlay() {
         }
     }
 
-    findViewById<TextView>(R.id.navCrearNoticia)?.setOnClickListener {
-        startActivity(Intent(this, CrearNoticiaActivity::class.java))
+    findViewById<TextView>(R.id.navConfiguracion)?.setOnClickListener {
+        startActivity(Intent(this, ConfiguracionActivity::class.java))
         closeMenus()
     }
 
+    findViewById<TextView>(R.id.navLogout)?.setOnClickListener {
+        startActivity(Intent(this, MainActivity::class.java))
+        closeMenus()
+    }
 }

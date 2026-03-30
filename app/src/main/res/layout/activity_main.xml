@@ -87,10 +87,7 @@
     <!-- BOTTOM NAV -->
     <include
         android:id="@+id/bottomBar"
-        layout="@layout/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        layout="@layout/bottom_bar"/>
 
     <!-- Menus y overlay -->
     <include

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/negro_fondo">
+
+    <!-- TOP BAR -->
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- CONTENT -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/bottomBar"
+        android:background="@color/negro_fondo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- TÍTULO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CLASIFICACIÓN"
+                android:textSize="22sp"
+                android:textColor="@color/blanco"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- SELECTOR DE GRUPO -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:padding="4dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/contenedorGrupos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="#1A1A1A"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/btnGrupo1"
+                        android:layout_width="72dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="GRUPO 1"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/blanco"
+                        android:background="@drawable/bg_tab_selected"/>
+
+                    <TextView
+                        android:id="@+id/btnGrupo2"
+                        android:layout_width="72dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="GRUPO 2"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/gris_texto"
+                        android:background="@android:color/transparent"/>
+
+                    <TextView
+                        android:id="@+id/btnGrupo3"
+                        android:layout_width="72dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="GRUPO 3"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/gris_texto"
+                        android:background="@android:color/transparent"/>
+
+                    <TextView
+                        android:id="@+id/btnGrupo4"
+                        android:layout_width="72dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="GRUPO 4"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/gris_texto"
+                        android:background="@android:color/transparent"/>
+
+                    <TextView
+                        android:id="@+id/btnGrupo5"
+                        android:layout_width="72dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="GRUPO 5"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/gris_texto"
+                        android:background="@android:color/transparent"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- CABECERA DE LA TABLA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:background="#1A1A1A"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="POS"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="EQUIPO"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="PJ"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="PG"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="PE"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="PP"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="GF"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="GC"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="GD"
+                    android:textSize="11sp"
+                    android:textColor="@color/gris_texto"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="PTS"
+                    android:textSize="11sp"
+                    android:textColor="@color/blanco"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <!-- CONTENEDOR DINÁMICO DE FILAS -->
+            <LinearLayout
+                android:id="@+id/contenedorClasificacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <!-- LEYENDA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                android:background="#1A1A1A">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#2196F3"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Promoción de ascenso"
+                        android:textSize="12sp"
+                        android:textColor="@color/gris_texto"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#F44336"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Descenso"
+                        android:textSize="12sp"
+                        android:textColor="@color/gris_texto"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM NAV -->
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/bottom_bar"/>
+
+    <!-- Menus y overlay -->
+    <include
+        layout="@layout/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include
+        layout="@layout/menu_menu"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"/>
+
+    <include
+        layout="@layout/menu_user"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

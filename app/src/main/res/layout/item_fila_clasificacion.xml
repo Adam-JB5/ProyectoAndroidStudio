@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:background="@drawable/bg_fila_clasificacion">
+
+    <!-- POSICIÓN -->
+    <TextView
+        android:id="@+id/txtPosicion"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="1"
+        android:textSize="13sp"
+        android:textColor="@color/blanco"
+        android:textStyle="bold"/>
+
+    <!-- INDICADOR DE COLOR (ascenso/descenso) -->
+    <View
+        android:id="@+id/indicadorPosicion"
+        android:layout_width="3dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="6dp"
+        android:background="@android:color/transparent"/>
+
+    <!-- NOMBRE EQUIPO -->
+    <TextView
+        android:id="@+id/txtNombreEquipo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="Nombre Equipo"
+        android:textSize="13sp"
+        android:textColor="@color/blanco"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+    <!-- PJ -->
+    <TextView
+        android:id="@+id/txtPJ"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- PG -->
+    <TextView
+        android:id="@+id/txtPG"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- PE -->
+    <TextView
+        android:id="@+id/txtPE"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- PP -->
+    <TextView
+        android:id="@+id/txtPP"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- GF -->
+    <TextView
+        android:id="@+id/txtGF"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- GC -->
+    <TextView
+        android:id="@+id/txtGC"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- GD -->
+    <TextView
+        android:id="@+id/txtGD"
+        android:layout_width="28dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textColor="@color/gris_texto"/>
+
+    <!-- PTS -->
+    <TextView
+        android:id="@+id/txtPuntos"
+        android:layout_width="32dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="14sp"
+        android:textColor="@color/blanco"
+        android:textStyle="bold"/>
+
+</LinearLayout>

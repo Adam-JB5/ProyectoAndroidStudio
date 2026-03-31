@@ -112,6 +112,14 @@
 
                     </LinearLayout>
                 </LinearLayout>
+                <CheckBox
+                    android:id="@+id/btnSeguir"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="top|end"
+                    android:button="@drawable/heart_selector"
+                    android:layout_margin="10dp"
+                    android:contentDescription="Seguir equipo"/>
             </FrameLayout>
 
             <!-- TABS -->

@@ -30,7 +30,7 @@ fun Activity.setupBottomBar(bottomBarId: Int) {
             icon.setImageResource(R.drawable.team)
         }
         // Nota: Revisa si es EquipoActivity o ClasificacionActivity
-        is EquipoActivity -> {
+        is ClasificacionActivity -> {
             val icon = navClasificacion.getChildAt(0) as ImageView
             icon.setImageResource(R.drawable.ranking)
         }
@@ -38,30 +38,26 @@ fun Activity.setupBottomBar(bottomBarId: Int) {
 
 
     navInicio.setOnClickListener {
-        Toast.makeText(this, "Inicio clickeado", Toast.LENGTH_SHORT).show()
         if (this !is MainActivity) {
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
     navPartidos.setOnClickListener {
-        Toast.makeText(this, "Partidos clickeado", Toast.LENGTH_SHORT).show()
         if (this !is PartidosActivity) {
             startActivity(Intent(this, PartidosActivity::class.java))
         }
     }
 
     navEquipos.setOnClickListener {
-        Toast.makeText(this, "Equipos clickeado", Toast.LENGTH_SHORT).show()
         if (this !is EquiposActivity) {
             startActivity(Intent(this, EquiposActivity::class.java))
         }
     }
 
     navClasificacion.setOnClickListener {
-        Toast.makeText(this, "Clasificación clickeado", Toast.LENGTH_SHORT).show()
-        if (this !is EquipoActivity) {
-            startActivity(Intent(this, EquipoActivity::class.java))
+        if (this !is ClasificacionActivity) {
+            startActivity(Intent(this, ClasificacionActivity::class.java))
         }
     }
 }

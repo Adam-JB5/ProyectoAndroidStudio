@@ -37,9 +37,6 @@ class MainActivity : AppCompatActivity() {
     private fun cargarNoticiasDesdeServidor() {
         val contenedorNoticias = findViewById<LinearLayout>(R.id.contenedorNoticias)
 
-        // Limpiamos los <include> estáticos que pusiste en el XML
-        contenedorNoticias.removeAllViews()
-
         val peticion = PeticionNoticia(PeticionNoticia.TipoOperacion.READ_ALL, null)
 
         CoroutineScope(Dispatchers.IO).launch {

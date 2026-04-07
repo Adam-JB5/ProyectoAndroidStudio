@@ -1,0 +1,37 @@
+<!-- res/layout/item_evento.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:gravity="center_vertical">
+
+    <!-- Minuto -->
+    <TextView
+        android:id="@+id/tvMinuto"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="45'"
+        android:textColor="@color/gris_texto"
+        android:textSize="13sp"
+        android:gravity="center"/>
+
+    <!-- Icono del tipo de evento -->
+    <ImageView
+        android:id="@+id/ivTipoEvento"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginHorizontal="8dp"
+        android:src="@android:drawable/btn_star_big_on"/>
+
+    <!-- Nombre del jugador -->
+    <TextView
+        android:id="@+id/tvNombreJugador"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nombre Jugador"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"/>
+
+</LinearLayout>

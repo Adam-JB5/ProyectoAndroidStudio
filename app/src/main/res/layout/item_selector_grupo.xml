@@ -24,7 +24,7 @@
             android:text="GRUPO 1"
             android:textSize="13sp"
             android:textStyle="bold"
-            android:textColor="@color/blanco"
+            android:textColor="@color/negro"
             android:background="@drawable/bg_tab_selected"/>
 
         <TextView

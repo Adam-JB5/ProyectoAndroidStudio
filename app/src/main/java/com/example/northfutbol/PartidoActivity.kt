@@ -1,14 +1,20 @@
 package com.example.northfutbol
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PartidoActivity : AppCompatActivity() {
 
@@ -88,17 +94,17 @@ class PartidoActivity : AppCompatActivity() {
         scrollEventos = findViewById(R.id.scrollEventos)
 
         // Equipo inicial
-        cargarJugadoresEquipo(equipo1)
+        cargarJugadoresDesdeServidor(1)
         marcarEquipoActivo(btnEquipo1, btnEquipo2)
 
         // Listeners
         btnEquipo1.setOnClickListener {
-            cargarJugadoresEquipo(equipo1)
+            cargarJugadoresDesdeServidor(1)
             marcarEquipoActivo(btnEquipo1, btnEquipo2)
         }
 
         btnEquipo2.setOnClickListener {
-            cargarJugadoresEquipo(equipo2)
+            cargarJugadoresDesdeServidor(2)
             marcarEquipoActivo(btnEquipo2, btnEquipo1)
         }
 
@@ -112,21 +118,47 @@ class PartidoActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarJugadoresEquipo(jugadores: List<Jugador>) {
-        contenedorJugadores.removeAllViews()
+    private fun cargarJugadoresDesdeServidor(idEquipo: Int) {
+        val peticion = PeticionEquipo(PeticionEquipo.TipoOperacion.READ, idEquipo)
 
-        for (jugador in jugadores) {
-            val item = layoutInflater.inflate(R.layout.item_jugador, contenedorJugadores, false)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketEquipo(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
 
-            val txtNumero = item.findViewById<TextView>(R.id.txtNumero)
-            val txtNombre = item.findViewById<TextView>(R.id.txtNombre)
-            val txtPosicion = item.findViewById<TextView>(R.id.posicion)
+                withContext(Dispatchers.Main) {
+                    Log.d("DEBUG_APP", "Exito: ${respuesta?.isExito}")
+                    Log.d("DEBUG_APP", "Cantidad jugadores: ${respuesta?.jugadores?.size ?: 0}")
 
-            txtNumero.text = jugador.numero
-            txtNombre.text = jugador.nombre
-            txtPosicion.text = jugador.posicion
+                    if (respuesta?.isExito == true && respuesta.jugadores != null) {
+                        contenedorJugadores.removeAllViews()
+                        for (jugador in respuesta.jugadores) {
+                            val item = layoutInflater.inflate(R.layout.item_jugador, contenedorJugadores, false)
 
-            contenedorJugadores.addView(item)
+                            item.findViewById<TextView>(R.id.txtNumero).text = jugador.dorsal.toString()
+                            item.findViewById<TextView>(R.id.txtNombre).text = "${jugador.nombre} ${jugador.apellido}"
+                            item.findViewById<TextView>(R.id.posicion).text = jugador.posicion
+
+                            contenedorJugadores.addView(item)
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@PartidoActivity,
+                            "No hay jugadores disponibles",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_SERVER", "Error al obtener jugadores: ${e.message}")
+                e.printStackTrace()
+
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PartidoActivity, "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 

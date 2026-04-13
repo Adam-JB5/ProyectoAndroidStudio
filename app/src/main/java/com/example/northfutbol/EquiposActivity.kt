@@ -3,6 +3,7 @@ package com.example.northfutbol
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -10,21 +11,20 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pojosnorthfutbol.Equipo
+import kotlin.jvm.java
 
 class EquiposActivity : AppCompatActivity() {
 
     private lateinit var tabsGrupo: List<TextView>
     private lateinit var contenedorEquipos: LinearLayout
-    private var grupoActivo = 1
+    private var grupoActivo = '1'
 
-    // Datos de prueba por grupo
-    private val equiposPorGrupo: Map<Int, List<String>> = mapOf(
-        1 to listOf("Real Madrid B", "Atlético B", "Getafe B", "Rayo B", "Leganés B"),
-        2 to listOf("Barcelona B", "Girona B", "Espanyol B", "Sabadell", "Badalona"),
-        3 to listOf("Valencia B", "Villarreal B", "Levante B", "Hércules", "Castellón"),
-        4 to listOf("Sevilla B", "Betis B", "Málaga", "Almería B", "Granada B"),
-        5 to listOf("Athletic B", "Real Sociedad B", "Osasuna B", "Alavés B", "Eibar")
-    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class EquiposActivity : AppCompatActivity() {
 
         inicializarSelectorGrupos()
         cargarGrupo(grupoActivo)
-        setupClickEquiposEstaticos()
     }
 
     private fun inicializarSelectorGrupos() {
@@ -50,20 +49,20 @@ class EquiposActivity : AppCompatActivity() {
         )
 
         tabsGrupo.forEachIndexed { index, tab ->
-            val grupo = index + 1
+            val grupo = ('1' + index)  // A, B, C, D, E
             tab.setOnClickListener {
                 grupoActivo = grupo
-                actualizarTabActivo(grupo)
+                actualizarTabActivo(grupo)  // también actualiza firma
                 cargarGrupo(grupo)
             }
         }
 
-        actualizarTabActivo(1)
+        actualizarTabActivo('1')
     }
 
-    private fun actualizarTabActivo(grupoSeleccionado: Int) {
+    private fun actualizarTabActivo(grupoSeleccionado: Char) {
         tabsGrupo.forEachIndexed { index, tab ->
-            if (index + 1 == grupoSeleccionado) {
+            if ('1' + index == grupoSeleccionado) {  // ✅ compara por código char
                 tab.setBackgroundResource(R.drawable.bg_tab_selected)
                 tab.setTextColor(getColor(R.color.blanco))
             } else {
@@ -73,30 +72,67 @@ class EquiposActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarGrupo(grupo: Int) {
-        contenedorEquipos.removeAllViews()
-        val equipos = equiposPorGrupo[grupo] ?: emptyList()
-        equipos.forEach { nombre ->
-            inflarItem(nombre)
-        }
+    private fun cargarGrupo(grupo: Char) {
+        cargarEquiposDesdeServidor(grupo)
     }
 
-    private fun inflarItem(nombreEquipo: String) {
-        val inflater = LayoutInflater.from(this)
-        val equipo = inflater.inflate(R.layout.item_equipo, contenedorEquipos, false)
+    private fun cargarEquiposDesdeServidor(grupo: Char) {
+        val peticion = PeticionEquipo(PeticionEquipo.TipoOperacion.READ_BY_GROUP, grupo)
 
-        equipo.findViewById<TextView>(R.id.txt_nombre_equipo).text = nombreEquipo
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketEquipo(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
 
-        contenedorEquipos.addView(equipo)
-    }
+                withContext(Dispatchers.Main) {
+                    Log.d("DEBUG_APP", "Exito equipos: ${respuesta?.isExito}")
+                    Log.d("DEBUG_APP", "Cantidad equipos: ${respuesta?.equipos?.size ?: 0}")
 
-    private fun setupClickEquiposEstaticos() {
-        val contenedorEquipos = findViewById<LinearLayout>(R.id.contenedorEquipos)
-        for (i in 0 until contenedorEquipos.childCount) {
-            contenedorEquipos.getChildAt(i).setOnClickListener {
-                Toast.makeText(this, "¡Bienvenido!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, EquipoActivity::class.java))
+                    contenedorEquipos.removeAllViews()
+
+                    if (respuesta?.isExito == true && respuesta.equipos != null) {
+                        for (equipo in respuesta.equipos) {
+                            agregarEquipoAVista(equipo)
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@EquiposActivity,
+                            "No hay equipos disponibles",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_SERVER", "Error al obtener equipos: ${e.message}")
+                e.printStackTrace()
+
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@EquiposActivity,
+                        "Error: ${e.localizedMessage}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
+    }
+
+    private fun agregarEquipoAVista(equipo: Equipo) {
+        val inflater = LayoutInflater.from(this)
+        val view = inflater.inflate(R.layout.item_equipo, contenedorEquipos, false)
+
+        view.findViewById<TextView>(R.id.txt_nombre_equipo).text = equipo.nombre
+        // Si tienes más campos, añádelos aquí:
+        // view.findViewById<TextView>(R.id.txt_grupo).text = "Grupo ${equipo.grupo}"
+
+        view.setOnClickListener {
+            val intent = Intent(this, EquipoActivity::class.java)
+            intent.putExtra("equipo_id", equipo.idEquipo) // pasa el ID u otros datos necesarios
+            startActivity(intent)
+        }
+
+        contenedorEquipos.addView(view)
     }
 }

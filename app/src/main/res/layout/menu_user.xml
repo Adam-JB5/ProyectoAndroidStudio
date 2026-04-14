@@ -42,4 +42,12 @@
         android:text="Cerrar sesión"
         android:textColor="@color/blanco"
         android:paddingVertical="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/navEncuesta"
+        android:text="✨¡Danos tu feedback!✨"
+        android:textColor="@color/blanco"
+        android:paddingVertical="12dp"/>
 </LinearLayout>

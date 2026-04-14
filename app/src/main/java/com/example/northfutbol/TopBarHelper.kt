@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import java.nio.file.Files.find
+import kotlin.jvm.java
 
 fun Activity.setupTopBarOverlay() {
 
@@ -97,6 +99,11 @@ fun Activity.setupTopBarOverlay() {
 
     findViewById<TextView>(R.id.navLogout)?.setOnClickListener {
         startActivity(Intent(this, MainActivity::class.java))
+        closeMenus()
+    }
+
+    findViewById<TextView>(R.id.navEncuesta)?.setOnClickListener {
+        startActivity(Intent(this, EncuestaActivity::class.java))
         closeMenus()
     }
 }

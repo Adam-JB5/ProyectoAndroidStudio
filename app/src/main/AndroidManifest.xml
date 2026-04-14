@@ -57,6 +57,11 @@
             android:exported="true"
             android:label="Clasificacion"
             android:theme="@style/Theme.PIAndroidStudio"/>
+        
+        <activity android:name=".EncuestaActivity"
+            android:exported="true"
+            android:label="Encuesta"
+            android:theme="@style/Theme.PIAndroidStudio"/>
 
         <activity
             android:name=".MainActivity"

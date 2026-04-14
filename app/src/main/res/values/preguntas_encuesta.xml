@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="preguntas">
+        <item>1. ¿Qué opinas de la interfaz general de la aplicación? Valora accesbilidad, diseño y si es intuitiva</item>
+        <item>2. ¿La aplicación funciona de manera fluida en tu dispositivo?</item>
+        <item>3. ¿Con qué frecuencia utilizas la aplicación?</item>
+        <item>4. ¿Qué tan probable es que recomiendes la app a otras personas?</item>
+        <item>5. ¿Las funciones cubren tus necesidades?</item>
+    </string-array>
+
+</resources>

@@ -23,8 +23,8 @@ object ClienteConfig {
 
             // IP de nuestro PC: conexión desde la
             // red o la publica desde fuera (192...)
-            //Entorno.REMOTO -> "192.168.1.2"
-            Entorno.REMOTO -> "10.177.104.82"
+            Entorno.REMOTO -> "192.168.1.2"
+            //Entorno.REMOTO -> "10.177.104.82"
         }
     }
 

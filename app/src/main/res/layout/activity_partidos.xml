@@ -9,7 +9,7 @@
         android:id="@+id/topBar"
         layout="@layout/top_bar"/>
 
-    <!-- FILTROS HORIZONTALES -->
+    <!-- FILTROS HORIZONTALES (Botones estáticos por ahora) -->
     <HorizontalScrollView
         android:id="@+id/filtrosScroll"
         android:layout_width="match_parent"
@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Botones de filtros adaptando ancho al texto -->
             <Button
                 android:id="@+id/btnTodos"
                 android:layout_width="wrap_content"
@@ -76,18 +75,6 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:includeFontPadding="false"/>
-
-            <Button
-                android:id="@+id/btnZaragoza"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Zaragoza"
-                android:background="@color/negro_secciones"
-                android:textColor="@android:color/white"
-                android:minWidth="0dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:includeFontPadding="false"/>
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -106,8 +93,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- EQUIPOS SEGUIDOS (temporal, sin RecyclerView) -->
+            <!-- SECCIÓN: EQUIPOS SEGUIDOS -->
             <TextView
+                android:id="@+id/labelSeguidos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Equipos seguidos"
@@ -117,18 +105,18 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp" />
 
-            <!-- Lista simulada -->
+            <!-- CONTENEDOR DINÁMICO (Vaciado para el backend) -->
             <LinearLayout
                 android:id="@+id/layoutEquiposSeguidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <include layout="@layout/item_partido"/>
-                <include layout="@layout/item_partido"/>
+                <!-- Se llenará con agregarPartidoAVista() -->
             </LinearLayout>
 
-            <!-- TODOS LOS PARTIDOS (temporal, sin RecyclerView) -->
+            <!-- SECCIÓN: TODOS LOS PARTIDOS -->
             <TextView
+                android:id="@+id/labelTodos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Todos los partidos"
@@ -138,14 +126,13 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="4dp" />
 
-            <!-- Lista simulada -->
+            <!-- CONTENEDOR DINÁMICO (Vaciado para el backend) -->
             <LinearLayout
                 android:id="@+id/layoutTodosPartidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <include layout="@layout/item_partido"/>
-                <include layout="@layout/item_partido"/>
+                <!-- Se llenará con agregarPartidoAVista() -->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -155,7 +142,7 @@
         android:id="@+id/bottomBar"
         layout="@layout/bottom_bar"/>
 
-    <!-- Menus y overlay -->
+    <!-- Menus y overlay (mantenemos funcionalidad de TopBarHelper) -->
     <include
         layout="@layout/overlay"
         android:layout_width="match_parent"

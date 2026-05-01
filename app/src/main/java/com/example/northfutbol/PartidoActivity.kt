@@ -18,27 +18,9 @@ import kotlinx.coroutines.withContext
 
 class PartidoActivity : AppCompatActivity() {
 
-    // Modelo
-    data class Jugador(
-        val numero: String,
-        val nombre: String,
-        val posicion: String
-    )
-
-    // Datos equipos
-    private val equipo1 = listOf(
-        Jugador("9", "Manuel Herrera", "DEL"),
-        Jugador("7", "Lucas Romero", "MED"),
-        Jugador("3", "Diego Fernández", "DEF"),
-        Jugador("1", "Pablo Salas", "POR")
-    )
-
-    private val equipo2 = listOf(
-        Jugador("11", "Carlos Peña", "DEL"),
-        Jugador("8", "Iván Soto", "MED"),
-        Jugador("4", "Marcos Díaz", "DEF"),
-        Jugador("1", "Sergio Luna", "POR")
-    )
+    private var idPartido: Int = -1
+    private var idLocal: Int = -1
+    private var idVisitante: Int = -1
 
     private lateinit var tabAlineacion: TextView
     private lateinit var tabEventos: TextView
@@ -50,6 +32,10 @@ class PartidoActivity : AppCompatActivity() {
     private lateinit var contenedorJugadores: LinearLayout
     private lateinit var btnEquipo1: Button
     private lateinit var btnEquipo2: Button
+
+    private lateinit var txtNombreLocalHeader: TextView
+    private lateinit var txtNombreVisitanteHeader: TextView
+    private lateinit var txtHoraHeader: TextView
 
     data class Evento(
         val tipoEvento: Char, // 'G', 'M', 'R', 'A'
@@ -69,52 +55,96 @@ class PartidoActivity : AppCompatActivity() {
     )
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partido)
+
+
+        // 1. Obtener ID del Intent
+        idPartido = intent.getIntExtra("ID_PARTIDO", -1)
 
         // TOP / BOTTOM BAR
         setupTopBarOverlay()
         setupBottomBar(R.id.bottomBar)
 
-        // Referencias
+        // 2. Inicializar Views
+        txtNombreLocalHeader = findViewById(R.id.txtNombreLocalHeader)
+        txtNombreVisitanteHeader = findViewById(R.id.txtNombreVisitanteHeader)
+        txtHoraHeader = findViewById(R.id.txtMarcador) // ID corregido según tu mensaje
         contenedorJugadores = findViewById(R.id.listaJugadores)
-
-        // Tabs
         tabAlineacion = findViewById(R.id.tabAlineacion)
         tabEventos = findViewById(R.id.tabEventos)
-
-        // Botones equipo alineacion
         btnEquipo1 = findViewById(R.id.btnEquipo1)
         btnEquipo2 = findViewById(R.id.btnEquipo2)
-
-        //Secciones
         scrollAlineacion = findViewById(R.id.scrollAlineacion)
         scrollEventos = findViewById(R.id.scrollEventos)
 
-        // Equipo inicial
-        cargarJugadoresDesdeServidor(1)
-        marcarEquipoActivo(btnEquipo1, btnEquipo2)
+        // 3. Cargar los datos del partido (Esto rellenará idLocal e idVisitante)
+        if (idPartido != -1) {
+            obtenerDatosPartido()
+        } else {
+            Toast.makeText(this, "Error: No se recibió el ID del partido", Toast.LENGTH_SHORT).show()
+        }
 
-        // Listeners
+        // 4. Listeners de los botones de equipo (DENTRO DE ALINEACIÓN)
         btnEquipo1.setOnClickListener {
-            cargarJugadoresDesdeServidor(1)
-            marcarEquipoActivo(btnEquipo1, btnEquipo2)
+            if (idLocal != -1) {
+                cargarJugadoresDesdeServidor(idLocal)
+                marcarEquipoActivo(btnEquipo1, btnEquipo2)
+            }
         }
 
         btnEquipo2.setOnClickListener {
-            cargarJugadoresDesdeServidor(2)
-            marcarEquipoActivo(btnEquipo2, btnEquipo1)
+            if (idVisitante != -1) {
+                cargarJugadoresDesdeServidor(idVisitante)
+                marcarEquipoActivo(btnEquipo2, btnEquipo1)
+            }
         }
 
-        tabAlineacion.setOnClickListener {
-            mostrarAlineacion()
-        }
-
+        // 5. Listeners de las Pestañas (Tabs)
+        tabAlineacion.setOnClickListener { mostrarAlineacion() }
         tabEventos.setOnClickListener {
             mostrarEventos()
-            cargarEventosPartido()
+            cargarEventosPartido() // Aquí deberías hacer la petición al backend en el futuro
+        }
+    }
+
+    private fun obtenerDatosPartido() {
+        val peticion = PeticionPartido(PeticionPartido.TipoOperacion.READ, idPartido)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketPartido(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true && respuesta.partido != null) {
+                        val partido = respuesta.partido
+                        idLocal = partido.local.idEquipo
+                        idVisitante = partido.visitante.idEquipo
+
+                        // ACTUALIZAR UI
+                        txtNombreLocalHeader.text = partido.local.nombre
+                        txtNombreVisitanteHeader.text = partido.visitante.nombre
+                        btnEquipo1.text = partido.local.nombre
+                        btnEquipo2.text = partido.visitante.nombre
+
+                        // Habilitar botones ahora que tenemos los IDs
+                        btnEquipo1.isEnabled = true
+                        btnEquipo2.isEnabled = true
+
+                        txtHoraHeader.text = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+
+                        // Carga inicial de la alineación local
+                        cargarJugadoresDesdeServidor(idLocal)
+                        marcarEquipoActivo(btnEquipo1, btnEquipo2)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_SERVER", "Error al obtener partido: ${e.message}")
+            }
         }
     }
 

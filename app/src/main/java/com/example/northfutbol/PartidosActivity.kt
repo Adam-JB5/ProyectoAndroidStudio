@@ -1,5 +1,6 @@
 package com.example.northfutbol
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -87,7 +88,12 @@ class PartidosActivity : AppCompatActivity() {
 
         // Set click listener to open match details if needed
         view.setOnClickListener {
-            // Intent intent = Intent(this, PartidoActivity::class.java)...
+            val intent = Intent(this, PartidoActivity::class.java)
+
+            // Pasamos el ID del partido para que la actividad sepa qué cargar
+            intent.putExtra("ID_PARTIDO", partido.idPartido)
+
+            startActivity(intent)
         }
 
         contenedor.addView(view)

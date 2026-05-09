@@ -17,9 +17,6 @@ import pojosnorthfutbol.Partido
 
 class PartidosActivity : AppCompatActivity() {
 
-    // These would ideally come from a User Session or SharedPreferences
-    private val equiposSeguidos = listOf("Real Madrid", "Barcelona")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partidos)

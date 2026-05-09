@@ -1,6 +1,7 @@
 package com.example.northfutbol
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -8,8 +9,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import java.nio.file.Files.find
-import kotlin.jvm.java
 
 fun Activity.setupTopBarOverlay() {
 
@@ -73,11 +72,6 @@ fun Activity.setupTopBarOverlay() {
         closeMenus()
     }
 
-//    findViewById<TextView>(R.id.nav)?.setOnClickListener {
-//        startActivity(Intent(this, Activity::class.java))
-//        closeMenus()
-//    }
-
     findViewById<TextView>(R.id.navCrearNoticia)?.setOnClickListener {
         startActivity(Intent(this, CrearNoticiaActivity::class.java))
         closeMenus()
@@ -98,6 +92,7 @@ fun Activity.setupTopBarOverlay() {
     }
 
     findViewById<TextView>(R.id.navLogout)?.setOnClickListener {
+        getSharedPreferences("usuario", Context.MODE_PRIVATE).edit().clear().apply()
         startActivity(Intent(this, MainActivity::class.java))
         closeMenus()
     }

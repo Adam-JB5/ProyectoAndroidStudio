@@ -1,5 +1,6 @@
 package com.example.northfutbol
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -80,9 +81,8 @@ class RegisterDialogFragment : DialogFragment() {
                                 "Usuario registrado correctamente",
                                 Toast.LENGTH_SHORT
                             ).show()
-
                             dismiss()
-
+                            startActivity(Intent(requireContext(), MainActivity::class.java))
                         } else {
                             Toast.makeText(
                                 context,
@@ -93,15 +93,11 @@ class RegisterDialogFragment : DialogFragment() {
                             restaurarBoton(btnRegister)
                         }
                     }
-
                 } catch (e: Exception) {
-
                     withContext(Dispatchers.Main) {
                         Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show()
                         restaurarBoton(btnRegister)
                     }
-
-
                 }
             }
 
@@ -112,7 +108,6 @@ class RegisterDialogFragment : DialogFragment() {
             loginDialog.show(parentFragmentManager, "loginDialog")
             dismiss()
         }
-
         return view
     }
 

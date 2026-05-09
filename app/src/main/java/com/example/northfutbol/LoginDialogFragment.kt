@@ -1,5 +1,6 @@
 package com.example.northfutbol
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,6 +73,7 @@ class LoginDialogFragment : DialogFragment() {
 
                                 Toast.makeText(context, "¡Bienvenido, ${respuesta.usuario.nombre}!", Toast.LENGTH_SHORT).show()
                                 dismiss()
+                                startActivity(Intent(requireContext(), MainActivity::class.java))
                             } else {
                                 Toast.makeText(context, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                             }

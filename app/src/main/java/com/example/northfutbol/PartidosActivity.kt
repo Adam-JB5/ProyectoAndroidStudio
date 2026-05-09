@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -85,6 +86,14 @@ class PartidosActivity : AppCompatActivity() {
         view.findViewById<TextView>(R.id.txtEquipoVisitante).text = partido.visitante.nombre.toString()
         view.findViewById<TextView>(R.id.txtFechaPartido).text = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(partido.fecha)
         view.findViewById<TextView>(R.id.txtHora).text = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+
+        // Cargar escudos de los equipos
+        view.findViewById<ImageView>(R.id.imgEquipoLocal).setImageResource(
+            EscudosHelper.obtenerEscudo(partido.local.nombre)
+        )
+        view.findViewById<ImageView>(R.id.imgEquipoVisitante).setImageResource(
+            EscudosHelper.obtenerEscudo(partido.visitante.nombre)
+        )
 
         // Set click listener to open match details if needed
         view.setOnClickListener {

@@ -124,8 +124,10 @@ class EquiposActivity : AppCompatActivity() {
         val view = inflater.inflate(R.layout.item_equipo, contenedorEquipos, false)
 
         view.findViewById<TextView>(R.id.txt_nombre_equipo).text = equipo.nombre
-        // Si tienes más campos, añádelos aquí:
-        // view.findViewById<TextView>(R.id.txt_grupo).text = "Grupo ${equipo.grupo}"
+        
+        // Cargar escudo del equipo usando el helper
+        val imgEquipo = view.findViewById<ImageView>(R.id.imagen_equipo)
+        imgEquipo.setImageResource(EscudosHelper.obtenerEscudo(equipo.nombre))
 
         view.setOnClickListener {
             val intent = Intent(this, EquipoActivity::class.java)

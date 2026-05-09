@@ -36,6 +36,8 @@ class PartidoActivity : AppCompatActivity() {
     private lateinit var txtNombreLocalHeader: TextView
     private lateinit var txtNombreVisitanteHeader: TextView
     private lateinit var txtHoraHeader: TextView
+    private lateinit var imgEscudoLocal: ImageView
+    private lateinit var imgEscudoVisitante: ImageView
 
     data class Evento(
         val tipoEvento: Char, // 'G', 'M', 'R', 'A'
@@ -71,6 +73,8 @@ class PartidoActivity : AppCompatActivity() {
         txtNombreLocalHeader = findViewById(R.id.txtNombreLocalHeader)
         txtNombreVisitanteHeader = findViewById(R.id.txtNombreVisitanteHeader)
         txtHoraHeader = findViewById(R.id.txtMarcador) // ID corregido según tu mensaje
+        imgEscudoLocal = findViewById(R.id.imgEscudoLocal)
+        imgEscudoVisitante = findViewById(R.id.imgEscudoVisitante)
         contenedorJugadores = findViewById(R.id.listaJugadores)
         tabAlineacion = findViewById(R.id.tabAlineacion)
         tabEventos = findViewById(R.id.tabEventos)
@@ -130,6 +134,10 @@ class PartidoActivity : AppCompatActivity() {
                         txtNombreVisitanteHeader.text = partido.visitante.nombre
                         btnEquipo1.text = partido.local.nombre
                         btnEquipo2.text = partido.visitante.nombre
+
+                        // Cargar escudos de los equipos
+                        imgEscudoLocal.setImageResource(EscudosHelper.obtenerEscudo(partido.local.nombre))
+                        imgEscudoVisitante.setImageResource(EscudosHelper.obtenerEscudo(partido.visitante.nombre))
 
                         // Habilitar botones ahora que tenemos los IDs
                         btnEquipo1.isEnabled = true

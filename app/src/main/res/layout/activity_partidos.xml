@@ -105,14 +105,20 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp" />
 
-            <!-- CONTENEDOR DINÁMICO (Vaciado para el backend) -->
-            <LinearLayout
-                android:id="@+id/layoutEquiposSeguidos"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- Se llenará con agregarPartidoAVista() -->
-            </LinearLayout>
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/layoutEquiposSeguidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <!-- SECCIÓN: TODOS LOS PARTIDOS -->
             <TextView

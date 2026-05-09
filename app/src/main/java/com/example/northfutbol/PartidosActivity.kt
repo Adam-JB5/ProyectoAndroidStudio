@@ -34,46 +34,64 @@ class PartidosActivity : AppCompatActivity() {
         val layoutSeguidos: LinearLayout = findViewById(R.id.layoutEquiposSeguidos)
         val layoutTodos: LinearLayout = findViewById(R.id.layoutTodosPartidos)
 
-        // Following the logic from MainActivity: READ_ALL operation
-        val peticion = PeticionPartido(PeticionPartido.TipoOperacion.READ_ALL, null)
+        // Igual que en ConfiguracionActivity: leemos el ID de sesión desde SharedPreferences
+        val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
+        val idUsuario = prefs.getInt("idUsuario", 0)
+
+        val peticionTodos = PeticionPartido(PeticionPartido.TipoOperacion.READ_ALL, null)
+        val peticionSeguidos = PeticionPartido(PeticionPartido.TipoOperacion.READ_BY_FOLLOWED, idUsuario)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val respuesta = ClienteSocketPartido(
+                val respuestaTodos = ClienteSocketPartido(
                     ClienteConfig.getServerIP(),
                     ClienteConfig.PUERTO_SERVIDOR
-                ).enviarPeticion(peticion)
+                ).enviarPeticion(peticionTodos)
+
+                val respuestaSeguidos = ClienteSocketPartido(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticionSeguidos)
 
                 withContext(Dispatchers.Main) {
-                    if (respuesta?.isExito == true && respuesta.partidos != null) {
-                        val todosLosPartidos = respuesta.partidos
 
-                        // 1. Filter for followed teams
-                        val partidosSeguidos = todosLosPartidos.filter { partido ->
-                            equiposSeguidos.contains(partido.local.nombre) ||
-                                    equiposSeguidos.contains(partido.visitante.nombre)
-                        }
-
-                        // 2. Inflate followed matches
-                        layoutSeguidos.removeAllViews() // Clear mock data if any
-                        partidosSeguidos.forEach { partido ->
-                            agregarPartidoAVista(layoutSeguidos, partido)
-                        }
-
-                        // 3. Inflate all matches
+                    // Todos los partidos
+                    if (respuestaTodos?.isExito == true && respuestaTodos.partidos != null) {
                         layoutTodos.removeAllViews()
-                        todosLosPartidos.forEach { partido ->
+                        respuestaTodos.partidos.forEach { partido ->
                             agregarPartidoAVista(layoutTodos, partido)
                         }
-
                     } else {
-                        Toast.makeText(this@PartidosActivity, "No hay partidos disponibles", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@PartidosActivity,
+                            "No hay partidos disponibles",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    // Partidos de equipos seguidos (ya filtrados en el servidor)
+                    if (respuestaSeguidos?.isExito == true && respuestaSeguidos.partidos != null) {
+                        layoutSeguidos.removeAllViews()
+                        respuestaSeguidos.partidos.forEach { partido ->
+                            agregarPartidoAVista(layoutSeguidos, partido)
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@PartidosActivity,
+                            "No sigues ningún equipo todavía",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
+
             } catch (e: Exception) {
                 Log.e("ERROR_SERVER", "Error al obtener partidos: ${e.message}")
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@PartidosActivity, "Error de conexión", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@PartidosActivity,
+                        "Error de conexión",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -84,10 +102,11 @@ class PartidosActivity : AppCompatActivity() {
 
         view.findViewById<TextView>(R.id.txtEquipoLocal).text = partido.local.nombre.toString()
         view.findViewById<TextView>(R.id.txtEquipoVisitante).text = partido.visitante.nombre.toString()
-        view.findViewById<TextView>(R.id.txtFechaPartido).text = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(partido.fecha)
-        view.findViewById<TextView>(R.id.txtHora).text = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+        view.findViewById<TextView>(R.id.txtFechaPartido).text =
+            java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(partido.fecha)
+        view.findViewById<TextView>(R.id.txtHora).text =
+            java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
 
-        // Cargar escudos de los equipos
         view.findViewById<ImageView>(R.id.imgEquipoLocal).setImageResource(
             EscudosHelper.obtenerEscudo(partido.local.nombre)
         )
@@ -95,13 +114,9 @@ class PartidosActivity : AppCompatActivity() {
             EscudosHelper.obtenerEscudo(partido.visitante.nombre)
         )
 
-        // Set click listener to open match details if needed
         view.setOnClickListener {
             val intent = Intent(this, PartidoActivity::class.java)
-
-            // Pasamos el ID del partido para que la actividad sepa qué cargar
             intent.putExtra("ID_PARTIDO", partido.idPartido)
-
             startActivity(intent)
         }
 

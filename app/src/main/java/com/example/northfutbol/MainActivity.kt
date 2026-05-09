@@ -9,13 +9,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pojosnorthfutbol.Noticia
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import pojosnorthfutbol.Partido
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         // 1. Cargar noticias desde el servidor
         cargarNoticiasDesdeServidor()
+
+        cargarPartidosDesdeServidor()
 
         // Lógica de partidos (puedes hacer lo mismo que con noticias luego)
         setupClickPartidosEstaticos()
@@ -75,6 +79,79 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun cargarPartidosDesdeServidor() {
+        val layoutSeguidos: LinearLayout = findViewById(R.id.layoutPartidosSeguidos)
+
+        // Igual que en ConfiguracionActivity: leemos el ID de sesión desde SharedPreferences
+        val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
+        val idUsuario = prefs.getInt("idUsuario", 0)
+
+        val peticionSeguidos = PeticionPartido(PeticionPartido.TipoOperacion.READ_BY_FOLLOWED, idUsuario)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+
+                val respuestaSeguidos = ClienteSocketPartido(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticionSeguidos)
+
+                withContext(Dispatchers.Main) {
+
+                    // Partidos de equipos seguidos (ya filtrados en el servidor)
+                    if (respuestaSeguidos?.isExito == true && respuestaSeguidos.partidos != null) {
+                        layoutSeguidos.removeAllViews()
+                        respuestaSeguidos.partidos.forEach { partido ->
+                            agregarPartidoAVista(layoutSeguidos, partido)
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "No sigues ningún equipo todavía",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            } catch (e: Exception) {
+                Log.e("ERROR_SERVER", "Error al obtener partidos: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error de conexión",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun agregarPartidoAVista(contenedor: LinearLayout, partido: Partido) {
+        val view = LayoutInflater.from(this).inflate(R.layout.item_partido, contenedor, false)
+
+        view.findViewById<TextView>(R.id.txtEquipoLocal).text = partido.local.nombre.toString()
+        view.findViewById<TextView>(R.id.txtEquipoVisitante).text = partido.visitante.nombre.toString()
+        view.findViewById<TextView>(R.id.txtFechaPartido).text =
+            java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(partido.fecha)
+        view.findViewById<TextView>(R.id.txtHora).text =
+            java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+
+        view.findViewById<ImageView>(R.id.imgEquipoLocal).setImageResource(
+            EscudosHelper.obtenerEscudo(partido.local.nombre)
+        )
+        view.findViewById<ImageView>(R.id.imgEquipoVisitante).setImageResource(
+            EscudosHelper.obtenerEscudo(partido.visitante.nombre)
+        )
+
+        view.setOnClickListener {
+            val intent = Intent(this, PartidoActivity::class.java)
+            intent.putExtra("ID_PARTIDO", partido.idPartido)
+            startActivity(intent)
+        }
+
+        contenedor.addView(view)
+    }
+
     private fun agregarNoticiaAVista(contenedor: LinearLayout, noticia: Noticia) {
         // Inflamos el layout item_noticia.xml individualmente
         val inflater = LayoutInflater.from(this)
@@ -112,7 +189,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupClickPartidosEstaticos() {
-        val contenedorPartidos = findViewById<LinearLayout>(R.id.contenedorPartidos)
+        val contenedorPartidos = findViewById<LinearLayout>(R.id.layoutPartidosSeguidos)
         for (i in 0 until contenedorPartidos.childCount) {
             contenedorPartidos.getChildAt(i).setOnClickListener {
                 startActivity(Intent(this, PartidoActivity::class.java))

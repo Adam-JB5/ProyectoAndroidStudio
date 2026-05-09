@@ -17,7 +17,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/blanco"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:paddingStart="4dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +26,12 @@
         android:id="@+id/navLogin"
         android:text="Iniciar sesión"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -33,21 +39,35 @@
         android:id="@+id/navConfiguracion"
         android:text="Configuración"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/navLogout"
         android:text="Cerrar sesión"
-        android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:textColor="#ff0000"
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/navEncuesta"
         android:text="✨¡Danos tu feedback!✨"
-        android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:textColor="#ffff00"
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:clickable="true"
+        android:focusable="true"/>
 </LinearLayout>

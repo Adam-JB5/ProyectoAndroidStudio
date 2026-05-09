@@ -17,7 +17,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/blanco"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:paddingStart="4dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +26,12 @@
         android:id="@+id/navInicio"
         android:text="Inicio"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -33,7 +39,12 @@
         android:id="@+id/navPartidos"
         android:text="Partidos"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -41,7 +52,12 @@
         android:id="@+id/navEquipos"
         android:text="Equipos"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -49,7 +65,12 @@
         android:id="@+id/navClasificacion"
         android:text="Clasificación"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -57,5 +78,9 @@
         android:id="@+id/navCrearNoticia"
         android:text="Crear noticia"
         android:textColor="@color/blanco"
-        android:paddingVertical="12dp"/>
+        android:background="@drawable/bg_menu_item"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:clickable="true"
+        android:focusable="true"/>
 </LinearLayout>

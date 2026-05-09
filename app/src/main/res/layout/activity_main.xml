@@ -27,6 +27,16 @@
             android:padding="16dp">
 
             <!-- PARTIDOS HORIZONTALES -->
+            <TextView
+                android:id="@+id/txtPartidosSeguidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PARTIDOS DE EQUIPOS SEGUIDOS"
+                android:textSize="16sp"
+                android:textColor="@color/gris_texto"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -17,7 +17,6 @@ class EquipoActivity : AppCompatActivity() {
     private lateinit var contentNoticias: LinearLayout
     private lateinit var contentPartidos: LinearLayout
     private lateinit var contentJugadores: LinearLayout
-    private lateinit var contentClasificacion: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +29,10 @@ class EquipoActivity : AppCompatActivity() {
         tabNoticias = findViewById(R.id.tabNoticias)
         tabPartidos = findViewById(R.id.tabPartidos)
         tabJugadores = findViewById(R.id.tabJugadores)
-        tabClasificacion = findViewById(R.id.tabClasificacion)
 
         contentNoticias = findViewById(R.id.contentNoticias)
         contentPartidos = findViewById(R.id.contentPartidos)
         contentJugadores = findViewById(R.id.contentJugadores)
-        contentClasificacion = findViewById(R.id.contentClasificacion)
 
         val clickListener = View.OnClickListener { view ->
             hideAll()
@@ -54,30 +51,23 @@ class EquipoActivity : AppCompatActivity() {
                     contentJugadores.visibility = View.VISIBLE
                     tabJugadores.setTextColor(Color.BLACK)
                 }
-                R.id.tabClasificacion -> {
-                    contentClasificacion.visibility = View.VISIBLE
-                    tabClasificacion.setTextColor(Color.BLACK)
-                }
             }
         }
 
         tabNoticias.setOnClickListener(clickListener)
         tabPartidos.setOnClickListener(clickListener)
         tabJugadores.setOnClickListener(clickListener)
-        tabClasificacion.setOnClickListener(clickListener)
     }
 
     private fun hideAll() {
         contentNoticias.visibility = View.GONE
         contentPartidos.visibility = View.GONE
         contentJugadores.visibility = View.GONE
-        contentClasificacion.visibility = View.GONE
     }
 
     private fun resetTabs() {
         tabNoticias.setTextColor(Color.GRAY)
         tabPartidos.setTextColor(Color.GRAY)
         tabJugadores.setTextColor(Color.GRAY)
-        tabClasificacion.setTextColor(Color.GRAY)
     }
 }

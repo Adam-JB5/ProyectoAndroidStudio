@@ -53,8 +53,10 @@ class ConfiguracionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_configuracion)
 
         initSupabase()
+
         setupTopBarOverlay()
         setupBottomBar(R.id.bottomBar)
+
         initViews()
         cargarDatosUsuario()
         setupOverlayPerfil()
@@ -105,7 +107,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         editEmail.setText(prefs.getString("email", ""))
         txtRol.text = prefs.getString("rol", "")
 
-        val fotoUrl = prefs.getString("foto", "")
+        val fotoUrl = prefs.getString("fotoPerfil", "")
         if (!fotoUrl.isNullOrEmpty()) {
             Glide.with(this)
                 .load(fotoUrl)
@@ -160,7 +162,7 @@ class ConfiguracionActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             // 1. Subir imagen si se ha seleccionado una nueva
-            var urlImagenFinal = getSharedPreferences("usuario", MODE_PRIVATE).getString("foto", null)
+            var urlImagenFinal = getSharedPreferences("usuario", MODE_PRIVATE).getString("fotoPerfil", null)
 
             if (imageUri != null) {
                 val nuevaUrl = withContext(Dispatchers.IO) { subirImagenSupabase() }
@@ -195,7 +197,7 @@ class ConfiguracionActivity : AppCompatActivity() {
                     prefs.edit()
                         .putString("nombre", nuevoNombre)
                         .putString("email", nuevoEmail)
-                        .putString("foto", urlImagenFinal)
+                        .putString("fotoPerfil", urlImagenFinal)
                         .apply()
                     Toast.makeText(this@ConfiguracionActivity, "Datos actualizados", Toast.LENGTH_SHORT).show()
                 } else {

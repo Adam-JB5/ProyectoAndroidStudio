@@ -2,6 +2,7 @@ package com.example.northfutbol
 
 import android.app.Activity
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 
 fun Activity.setupTopBarOverlay() {
 
@@ -19,6 +21,15 @@ fun Activity.setupTopBarOverlay() {
     val menuRight = findViewById<LinearLayout>(R.id.menuUser)
     val overlay = findViewById<View>(R.id.menuOverlay)
     val scroll = findViewById<ScrollView>(R.id.scrollContent)
+
+    val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
+    val fotoUrl = prefs.getString("fotoPerfil", "")
+    if (!fotoUrl.isNullOrEmpty()) {
+        Glide.with(this)
+            .load(fotoUrl)
+            .placeholder(R.drawable.user)
+            .into(btnUsuario)
+    }
 
     fun closeMenus() {
         if (menuLeft.visibility == View.VISIBLE) {

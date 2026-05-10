@@ -2,9 +2,12 @@ package com.example.northfutbol
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +17,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pojosnorthfutbol.Comentario
+import pojosnorthfutbol.Noticia
+import pojosnorthfutbol.Usuario
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class NoticiaActivity : AppCompatActivity() {
@@ -30,6 +37,10 @@ class NoticiaActivity : AppCompatActivity() {
     private lateinit var txtContenido: TextView
     private lateinit var edtComentario: EditText
     private lateinit var btnEnviarComentario: Button
+    private lateinit var containerComentarios: LinearLayout
+
+    // Datos
+    private var usuarioActualID: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,17 +59,18 @@ class NoticiaActivity : AppCompatActivity() {
         // 3. Cargar datos si el ID es válido
         if (idNoticia != -1) {
             obtenerDatosNoticia()
+            obtenerComentarios()
         } else {
             Toast.makeText(this, "Error: No se recibió el ID de la noticia", Toast.LENGTH_SHORT).show()
         }
 
         // 4. Lógica de comentarios
         btnEnviarComentario.setOnClickListener {
-            val comentario = edtComentario.text.toString().trim()
-            if (comentario.isNotEmpty()) {
-                // TODO: Implementar envío de comentario al servidor
-                Toast.makeText(this, "Comentario enviado (Simulado)", Toast.LENGTH_SHORT).show()
-                edtComentario.text.clear()
+            val textoComentario = edtComentario.text.toString().trim()
+            if (textoComentario.isNotEmpty()) {
+                enviarComentario(textoComentario)
+            } else {
+                Toast.makeText(this, "Por favor escribe un comentario", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -72,6 +84,7 @@ class NoticiaActivity : AppCompatActivity() {
         txtContenido = findViewById(R.id.txtContenido)
         edtComentario = findViewById(R.id.edtComentario)
         btnEnviarComentario = findViewById(R.id.btnEnviarComentario)
+        containerComentarios = findViewById(R.id.containerComentarios)
     }
 
     private fun obtenerDatosNoticia() {
@@ -115,6 +128,181 @@ class NoticiaActivity : AppCompatActivity() {
                 Log.e("ERROR_SERVER", "Error al obtener noticia: ${e.message}")
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@NoticiaActivity, "Error de conexión con el servidor", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun obtenerComentarios() {
+        val peticion = PeticionComentario()
+        peticion.tipoOperacion = PeticionComentario.TipoOperacion.READ_BY_NOTICIA
+        peticion.idNoticia = idNoticia
+        
+        Log.d("DEBUG_COMENTARIOS", "Enviando petición READ_BY_NOTICIA con idNoticia=$idNoticia")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketComentario(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta != null && !respuesta.comentarios.isNullOrEmpty()) {
+                        Log.d("DEBUG_COMENTARIOS", "Comentarios cargados: ${respuesta.comentarios.size}")
+                        mostrarComentarios(respuesta.comentarios)
+                    } else {
+                        Log.d("DEBUG_COMENTARIOS", "Sin comentarios - isExito: ${respuesta?.isExito}, lista: ${respuesta?.comentarios}")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_COMENTARIOS", "Error al obtener comentarios: ${e.message}")
+            }
+        }
+    }
+
+    private fun mostrarComentarios(comentarios: List<Comentario>) {
+        containerComentarios.removeAllViews()
+        
+        if (comentarios.isEmpty()) {
+            val tvSinComentarios = TextView(this)
+            tvSinComentarios.text = "No hay comentarios aún"
+            tvSinComentarios.setTextColor(android.graphics.Color.parseColor("#888888"))
+            tvSinComentarios.textSize = 14f
+            containerComentarios.addView(tvSinComentarios)
+        } else {
+            for (comentario in comentarios) {
+                agregarComentarioAUI(comentario)
+            }
+        }
+    }
+
+    private fun agregarComentarioAUI(comentario: Comentario) {
+        val itemView = LayoutInflater.from(this)
+            .inflate(R.layout.item_comentario, containerComentarios, false)
+
+        itemView.findViewById<TextView>(R.id.txtUsuarioComentario).text =
+            comentario.usuario?.nombre ?: "Usuario"
+        itemView.findViewById<TextView>(R.id.txtContenidoComentario).text =
+            comentario.contenido
+        comentario.fechaCreacion?.let {
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            itemView.findViewById<TextView>(R.id.txtFechaComentario).text = sdf.format(it)
+        }
+
+        // Lógica del botón eliminar
+        val prefs = getSharedPreferences("usuario", 0)
+        val idUsuarioSesion = prefs.getInt("idUsuario", -1)
+        val rolUsuarioSesion = prefs.getString("rol", "")
+
+        val esAdmin = rolUsuarioSesion == "A"
+        val esAutor = comentario.usuario?.idUsuario == idUsuarioSesion
+
+        val btnEliminar = itemView.findViewById<ImageView>(R.id.btnEliminarComentario)
+        if (esAdmin || esAutor) {
+            btnEliminar.visibility = View.VISIBLE
+            btnEliminar.setOnClickListener {
+                eliminarComentario(comentario, itemView)
+            }
+        }
+
+        containerComentarios.addView(itemView)
+    }
+
+    private fun eliminarComentario(comentario: Comentario, itemView: View) {
+        val peticion = PeticionComentario().apply {
+            tipoOperacion = PeticionComentario.TipoOperacion.DELETE
+            this.comentario = comentario
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketComentario(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true) {
+                        containerComentarios.removeView(itemView)
+                        Toast.makeText(this@NoticiaActivity, "Comentario eliminado", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@NoticiaActivity, "No se pudo eliminar: ${respuesta?.mensaje}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_ELIMINAR", "Error al eliminar comentario: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@NoticiaActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun enviarComentario(texto: String) {
+        // Obtener usuario desde SharedPreferences
+        val prefs = getSharedPreferences("usuario", 0)
+        val idUsuario = prefs.getInt("idUsuario", -1)
+        
+        if (idUsuario == -1) {
+            Toast.makeText(this, "Error: Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        // Crear objeto Usuario
+        val usuario = Usuario()
+        usuario.idUsuario = idUsuario
+        usuario.nombre = prefs.getString("nombre", "Usuario") ?: "Usuario"
+        
+        // Crear objeto Noticia con el ID
+        val noticia = Noticia()
+        noticia.idNoticia = idNoticia
+        
+        // Crear comentario
+        val nuevoComentario = Comentario()
+        nuevoComentario.contenido = texto
+        nuevoComentario.usuario = usuario
+        nuevoComentario.noticia = noticia
+        nuevoComentario.fechaCreacion = Date()
+        
+        val peticion = PeticionComentario()
+        peticion.tipoOperacion = PeticionComentario.TipoOperacion.CREATE
+        peticion.comentario = nuevoComentario
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketComentario(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta != null && respuesta.isExito) {
+                        // Agregar el comentario localmente a la UI de inmediato
+                        nuevoComentario.fechaCreacion = Date()
+                        agregarComentarioAUI(nuevoComentario)
+                        
+                        edtComentario.text.clear()
+                        Toast.makeText(this@NoticiaActivity, "Comentario enviado", Toast.LENGTH_SHORT).show()
+                        Log.d("DEBUG_ENVIO", "Comentario enviado correctamente, agregado a UI")
+                        
+                        // Recargar la lista en background para sincronizar
+                        obtenerComentarios()
+                    } else if (respuesta != null && respuesta.comentario != null) {
+                        // Si devuelve el objeto comentario directamente
+                        agregarComentarioAUI(respuesta.comentario)
+                        edtComentario.text.clear()
+                        Toast.makeText(this@NoticiaActivity, "Comentario enviado", Toast.LENGTH_SHORT).show()
+                        Log.d("DEBUG_ENVIO", "Comentario enviado correctamente (con objeto)")
+                    } else {
+                        Toast.makeText(this@NoticiaActivity, "Error al enviar comentario: ${respuesta?.mensaje}", Toast.LENGTH_SHORT).show()
+                        Log.d("DEBUG_ENVIO", "Error: isExito=${respuesta?.isExito}, comentario=${respuesta?.comentario}, mensaje=${respuesta?.mensaje}")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_COMENTARIO", "Error al enviar comentario: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@NoticiaActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
                 }
             }
         }

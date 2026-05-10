@@ -16,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pojosnorthfutbol.Equipo
-import kotlin.jvm.java
 
 class EquiposActivity : AppCompatActivity() {
 
@@ -131,7 +130,7 @@ class EquiposActivity : AppCompatActivity() {
 
         view.setOnClickListener {
             val intent = Intent(this, EquipoActivity::class.java)
-            intent.putExtra("equipo_id", equipo.idEquipo) // pasa el ID u otros datos necesarios
+            intent.putExtra("ID_EQUIPO", equipo.idEquipo) // pasa el ID u otros datos necesarios
             startActivity(intent)
         }
 

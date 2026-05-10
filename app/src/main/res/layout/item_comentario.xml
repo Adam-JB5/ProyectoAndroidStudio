@@ -73,6 +73,8 @@
         android:padding="5dp"
         android:src="@drawable/bin"
         android:background="#ff0000"
-        android:visibility="visible"/>
+        android:visibility="gone"
+        android:focusable="true"
+        android:clickable="true"/>
 
 </LinearLayout>

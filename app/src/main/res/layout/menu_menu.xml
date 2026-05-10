@@ -82,5 +82,6 @@
         android:paddingVertical="12dp"
         android:paddingHorizontal="16dp"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        android:visibility="gone"/>
 </LinearLayout>

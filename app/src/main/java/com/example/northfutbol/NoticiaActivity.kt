@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -202,7 +203,7 @@ class NoticiaActivity : AppCompatActivity() {
         if (esAdmin || esAutor) {
             btnEliminar.visibility = View.VISIBLE
             btnEliminar.setOnClickListener {
-                eliminarComentario(comentario, itemView)
+                confirmarEliminarComentario(comentario, itemView)
             }
         }
 
@@ -212,7 +213,7 @@ class NoticiaActivity : AppCompatActivity() {
     private fun eliminarComentario(comentario: Comentario, itemView: View) {
         val peticion = PeticionComentario().apply {
             tipoOperacion = PeticionComentario.TipoOperacion.DELETE
-            this.comentario = comentario
+            this.idComentario = comentario.getIdComentario()
         }
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -237,6 +238,17 @@ class NoticiaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun confirmarEliminarComentario(comentario: Comentario, itemView: View) {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar comentario")
+            .setMessage("¿Estás seguro de que quieres eliminar este comentario?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                eliminarComentario(comentario, itemView)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun enviarComentario(texto: String) {

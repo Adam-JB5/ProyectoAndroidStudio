@@ -83,9 +83,12 @@ fun Activity.setupTopBarOverlay() {
         closeMenus()
     }
 
-    findViewById<TextView>(R.id.navCrearNoticia)?.setOnClickListener {
-        startActivity(Intent(this, CrearNoticiaActivity::class.java))
-        closeMenus()
+    if (prefs.getString("rol", "") == "A") {
+        findViewById<TextView>(R.id.navCrearNoticia)?.visibility = View.VISIBLE
+        findViewById<TextView>(R.id.navCrearNoticia)?.setOnClickListener {
+            startActivity(Intent(this, CrearNoticiaActivity::class.java))
+            closeMenus()
+        }
     }
 
     // --- Botones Menu Usuario ---

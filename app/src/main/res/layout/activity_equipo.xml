@@ -48,8 +48,7 @@
                         android:id="@+id/ivEscudoEquipo"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:background="@drawable/ic_launcher_foreground" />
+                        android:src="@android:drawable/ic_menu_gallery" />
 
                     <!-- Nombre del equipo -->
                     <TextView
@@ -139,6 +138,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:text="Noticias"
                     android:textColor="@android:color/white" />
@@ -149,6 +149,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:text="Partidos"
                     android:textColor="@android:color/white" />
@@ -159,6 +160,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:text="Jugadores"
                     android:textColor="@android:color/white" />
@@ -228,21 +230,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:text="Contenido de jugadores" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contentClasificacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:text="Contenido de clasificación" />
             </LinearLayout>
 
         </LinearLayout>

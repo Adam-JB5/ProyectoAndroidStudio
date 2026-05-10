@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +20,7 @@ class EquipoActivity : AppCompatActivity() {
 
     private var idEquipo: Int = -1
 
+    private lateinit var ivEscudoEquipo: ImageView
     private lateinit var txtNombreEquipo: TextView
     private lateinit var txtCiudadEquipo: TextView
     private lateinit var txtEntrenadorEquipo: TextView
@@ -48,6 +50,7 @@ class EquipoActivity : AppCompatActivity() {
         contentPartidos = findViewById(R.id.contentPartidos)
         contentJugadores = findViewById(R.id.contentJugadores)
 
+        ivEscudoEquipo = findViewById(R.id.ivEscudoEquipo)
         txtNombreEquipo = findViewById(R.id.txtNombreEquipo)
         txtCiudadEquipo = findViewById(R.id.txtCiudadEquipo)
         txtEntrenadorEquipo = findViewById(R.id.txtEntrenadorEquipo)
@@ -65,6 +68,33 @@ class EquipoActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Error: No se recibió el ID del equipo", Toast.LENGTH_SHORT).show()
         }
+
+        val clickListener = View.OnClickListener { view ->
+            hideAll()
+            resetTabs()
+
+            when (view.id) {
+                R.id.tabNoticias -> {
+                    contentNoticias.visibility = View.VISIBLE
+                    tabNoticias.setTextColor(Color.WHITE)
+                }
+                R.id.tabPartidos -> {
+                    contentPartidos.visibility = View.VISIBLE
+                    tabPartidos.setTextColor(Color.WHITE)
+                }
+                R.id.tabJugadores -> {
+                    contentJugadores.visibility = View.VISIBLE
+                    tabJugadores.setTextColor(Color.WHITE)
+                }
+            }
+        }
+
+        tabNoticias.setOnClickListener(clickListener)
+        tabPartidos.setOnClickListener(clickListener)
+        tabJugadores.setOnClickListener(clickListener)
+
+        // Mostrar la tab inicial
+        tabNoticias.setTextColor(Color.WHITE)
     }
 
     private fun hideAll() {
@@ -106,18 +136,19 @@ class EquipoActivity : AppCompatActivity() {
     }
 
     private fun mostrarDatosEquipo(equipo: Equipo) {
+        ivEscudoEquipo.setImageResource(EscudosHelper.obtenerEscudo(equipo.nombre))
         txtNombreEquipo.text = equipo.nombre
         txtCiudadEquipo.text = equipo.ciudad ?: "-"
         txtEntrenadorEquipo.text = equipo.entrenador ?: "-"
     }
 
-    private fun getIdUsuario(): Int =
+    private fun idUsuario(): Int =
         getSharedPreferences("usuario", 0).getInt("idUsuario", -1)
 
     private fun comprobarSeguimiento() {
         val peticion = PeticionUsuarioEquiposSeguidos().apply {
             tipoOperacion = PeticionUsuarioEquiposSeguidos.TipoOperacion.CHECK
-            idUsuario = getIdUsuario()
+            idUsuario = idUsuario()
             idEquipo = this@EquipoActivity.idEquipo
         }
 
@@ -144,7 +175,7 @@ class EquipoActivity : AppCompatActivity() {
     private fun seguirEquipo() {
         val peticion = PeticionUsuarioEquiposSeguidos().apply {
             tipoOperacion = PeticionUsuarioEquiposSeguidos.TipoOperacion.CREATE
-            idUsuario = getIdUsuario()
+            idUsuario = idUsuario()
             idEquipo = this@EquipoActivity.idEquipo
         }
 
@@ -184,7 +215,7 @@ class EquipoActivity : AppCompatActivity() {
     private fun dejarDeSeguirEquipo() {
         val peticion = PeticionUsuarioEquiposSeguidos().apply {
             tipoOperacion = PeticionUsuarioEquiposSeguidos.TipoOperacion.DELETE
-            idUsuario = getIdUsuario()
+            idUsuario = idUsuario()
             idEquipo = this@EquipoActivity.idEquipo
         }
 

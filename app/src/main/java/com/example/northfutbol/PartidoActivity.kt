@@ -35,7 +35,7 @@ class PartidoActivity : AppCompatActivity() {
 
     private lateinit var txtNombreLocalHeader: TextView
     private lateinit var txtNombreVisitanteHeader: TextView
-    private lateinit var txtHoraHeader: TextView
+    private lateinit var txtMarcador: TextView
     private lateinit var imgEscudoLocal: ImageView
     private lateinit var imgEscudoVisitante: ImageView
 
@@ -72,7 +72,7 @@ class PartidoActivity : AppCompatActivity() {
         // 2. Inicializar Views
         txtNombreLocalHeader = findViewById(R.id.txtNombreLocalHeader)
         txtNombreVisitanteHeader = findViewById(R.id.txtNombreVisitanteHeader)
-        txtHoraHeader = findViewById(R.id.txtMarcador) // ID corregido según tu mensaje
+        txtMarcador = findViewById(R.id.txtMarcador) // ID corregido según tu mensaje
         imgEscudoLocal = findViewById(R.id.imgEscudoLocal)
         imgEscudoVisitante = findViewById(R.id.imgEscudoVisitante)
         contenedorJugadores = findViewById(R.id.listaJugadores)
@@ -143,7 +143,11 @@ class PartidoActivity : AppCompatActivity() {
                         btnEquipo1.isEnabled = true
                         btnEquipo2.isEnabled = true
 
-                        txtHoraHeader.text = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+                        //FECHA
+                        //txtMarcador.text = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+
+                        //PUNTUACION
+                        txtMarcador.text = partido.golesLocal.toString() + " | " + partido.golesVisitante.toString()
 
                         // Carga inicial de la alineación local
                         cargarJugadoresDesdeServidor(idLocal)

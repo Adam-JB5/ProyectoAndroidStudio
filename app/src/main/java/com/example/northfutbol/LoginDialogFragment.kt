@@ -32,8 +32,6 @@ class LoginDialogFragment : DialogFragment() {
             val email = view.findViewById<EditText>(R.id.inputEmail).text.toString()
             val password = view.findViewById<EditText>(R.id.inputPassword).text.toString()
 
-            // TODO: aquí va la validación del login (backend o Firebase)
-
             if (email.isNotEmpty() && password.isNotEmpty()) {
 
                 // 1. Creamos un usuario "temporal" con las credenciales

@@ -157,11 +157,11 @@ class PartidoActivity : AppCompatActivity() {
     }
 
     private fun cargarJugadoresDesdeServidor(idEquipo: Int) {
-        val peticion = PeticionEquipo(PeticionEquipo.TipoOperacion.READ, idEquipo)
+        val peticion = PeticionJugador(PeticionJugador.TipoOperacion.READ_BY_TEAM, idEquipo)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val respuesta = ClienteSocketEquipo(
+                val respuesta = ClienteSocketJugador(
                     ClienteConfig.getServerIP(),
                     ClienteConfig.PUERTO_SERVIDOR
                 ).enviarPeticion(peticion)

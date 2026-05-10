@@ -27,9 +27,11 @@ public class PeticionJugador implements Serializable{
         CREATE,     // Crea un jugador
         READ,       // Lee un jugador
         READ_ALL,   // Lee todos los jugador
+        READ_BY_TEAM,
         UPDATE,     // Modifica un jugador
         DELETE,     //
-        PING        //
+        PING,       //
+        READ_BY_EQUIPO,
     }
 
     // 3. ¿QUÉ QUIERES HACER?
@@ -39,7 +41,7 @@ public class PeticionJugador implements Serializable{
     private Jugador jugador;
 
     // 5. ¿CON QUÉ ID? (Read/Delete)
-    private int idJugador;
+    private int id;
 
     // 6. CONSTRUCTORES
     // 6.1. Vacío
@@ -53,21 +55,15 @@ public class PeticionJugador implements Serializable{
     }
 
     // 6.3. Contructor para Read/Delete
-    public PeticionJugador(TipoOperacion tipoOperacion, int idJugador) {
+    public PeticionJugador(TipoOperacion tipoOperacion, int idJugadorEquipo) {
         this.tipoOperacion = tipoOperacion;
-        this.idJugador = idJugador;
+        this.id = idJugadorEquipo;
     }
 
     // 6.4. Contructor para Create/Update
     public PeticionJugador(TipoOperacion tipoOperacion, int idJugador, Jugador jugador) {
         this.tipoOperacion = tipoOperacion;
-        this.idJugador = idJugador;
-        this.jugador = jugador;
-    }
-
-    // Constructor para Login/Register
-    public PeticionJugador(TipoOperacion tipoOperacion, Jugador jugador) {
-        this.tipoOperacion = tipoOperacion;
+        this.id = idJugador;
         this.jugador = jugador;
     }
 
@@ -89,12 +85,12 @@ public class PeticionJugador implements Serializable{
         this.jugador = jugador;
     }
 
-    public int getIdJugador() {
-        return idJugador;
+    public int getId() {
+        return id;
     }
 
-    public void setIdJugador(int idJugador) {
-        this.idJugador = idJugador;
+    public void setId(int id) {
+        this.id = id;
     }
 
 

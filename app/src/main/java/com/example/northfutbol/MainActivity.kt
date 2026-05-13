@@ -143,6 +143,10 @@ class MainActivity : AppCompatActivity() {
             EscudosHelper.obtenerEscudo(partido.visitante.nombre)
         )
 
+        val cardView = view as androidx.cardview.widget.CardView
+        cardView.setCardBackgroundColor(android.graphics.Color.TRANSPARENT)
+        view.findViewById<LinearLayout>(R.id.layoutInternoPartido).background = ZigzagBackground()
+
         view.setOnClickListener {
             val intent = Intent(this, PartidoActivity::class.java)
             intent.putExtra("ID_PARTIDO", partido.idPartido)

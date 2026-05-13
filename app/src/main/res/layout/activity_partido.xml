@@ -38,7 +38,6 @@
                     android:id="@+id/imgEscudoLocal"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:background="#555"
                     android:scaleType="centerInside"
                     android:src="@drawable/team" />
 
@@ -76,7 +75,6 @@
                     android:id="@+id/imgEscudoVisitante"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:background="#555"
                     android:scaleType="centerInside"
                     android:src="@drawable/team" />
 

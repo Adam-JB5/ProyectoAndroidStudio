@@ -17,6 +17,8 @@ import pojosnorthfutbol.Partido
 
 class PartidosActivity : AppCompatActivity() {
 
+    val zigzagBackground = ZigzagBackground()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_partidos)
@@ -56,7 +58,7 @@ class PartidosActivity : AppCompatActivity() {
                     if (respuestaTodos?.isExito == true && respuestaTodos.partidos != null) {
                         layoutTodos.removeAllViews()
                         respuestaTodos.partidos.forEach { partido ->
-                            agregarPartidoAVista(layoutTodos, partido)
+                            agregarPartidoAVista(layoutTodos, partido, zigzagBackground)
                         }
                     } else {
                         Toast.makeText(
@@ -70,7 +72,7 @@ class PartidosActivity : AppCompatActivity() {
                     if (respuestaSeguidos?.isExito == true && respuestaSeguidos.partidos != null) {
                         layoutSeguidos.removeAllViews()
                         respuestaSeguidos.partidos.forEach { partido ->
-                            agregarPartidoAVista(layoutSeguidos, partido)
+                            agregarPartidoAVista(layoutSeguidos, partido, zigzagBackground)
                         }
                     } else {
                         Toast.makeText(
@@ -94,7 +96,7 @@ class PartidosActivity : AppCompatActivity() {
         }
     }
 
-    private fun agregarPartidoAVista(contenedor: LinearLayout, partido: Partido) {
+    private fun agregarPartidoAVista(contenedor: LinearLayout, partido: Partido, bg: ZigzagBackground? = null) {
         val view = LayoutInflater.from(this).inflate(R.layout.item_partido, contenedor, false)
 
         view.findViewById<TextView>(R.id.txtEquipoLocal).text = partido.local.nombre.toString()
@@ -110,6 +112,10 @@ class PartidosActivity : AppCompatActivity() {
         view.findViewById<ImageView>(R.id.imgEquipoVisitante).setImageResource(
             EscudosHelper.obtenerEscudo(partido.visitante.nombre)
         )
+
+        val cardView = view as androidx.cardview.widget.CardView
+        cardView.setCardBackgroundColor(android.graphics.Color.TRANSPARENT)
+        view.findViewById<LinearLayout>(R.id.layoutInternoPartido).background = bg
 
         view.setOnClickListener {
             val intent = Intent(this, PartidoActivity::class.java)

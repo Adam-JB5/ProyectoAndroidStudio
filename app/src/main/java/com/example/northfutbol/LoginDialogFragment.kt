@@ -37,7 +37,7 @@ class LoginDialogFragment : DialogFragment() {
                 // 1. Creamos un usuario "temporal" con las credenciales
                 val loginDatos = Usuario().apply {
                     setEmail(email)
-                    setContrasenna(password)
+                    setContrasenna(HashHelper.sha256(password))
                 }
 
                 // 2. Peticion de tipo LOGIN

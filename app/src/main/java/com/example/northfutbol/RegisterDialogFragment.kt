@@ -52,7 +52,7 @@ class RegisterDialogFragment : DialogFragment() {
             val nuevoUsuario = Usuario().apply {
                 setNombre(nombre)
                 setEmail(email)
-                setContrasenna(password)   // TODO hashear la contrasenna
+                setContrasenna(HashHelper.sha256(password))   // TODO hashear la contrasenna
                 setRol("R")                // Rol por defecto
                 setFotoPerfil(null)
             }

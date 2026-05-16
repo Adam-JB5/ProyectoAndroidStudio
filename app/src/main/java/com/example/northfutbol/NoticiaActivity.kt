@@ -184,15 +184,31 @@ class NoticiaActivity : AppCompatActivity() {
 
         itemView.findViewById<TextView>(R.id.txtUsuarioComentario).text =
             comentario.usuario?.nombre ?: "Usuario"
-        itemView.findViewById<TextView>(R.id.txtContenidoComentario).text =
-            comentario.contenido
+
+        // Imagen del usuario del comentario
+        val imgUsuario = itemView.findViewById<ImageView>(R.id.imgPerfilComentario)
+        val fotoUrl = comentario.usuario?.fotoPerfil
+        if (!fotoUrl.isNullOrEmpty()) {
+            Log.d("DEBUG_FOTO", "Cargando foto de perfil: $fotoUrl")
+            Glide.with(this)
+                .load(fotoUrl)
+                .placeholder(R.drawable.user)
+                .error(R.drawable.user)
+                .circleCrop()
+                .into(imgUsuario)
+        } else {
+            Log.d("DEBUG_FOTO", "No se cargó la foto de perfil: $fotoUrl")
+            imgUsuario.setImageResource(R.drawable.user)
+        }
+
+        itemView.findViewById<TextView>(R.id.txtContenidoComentario).text = comentario.contenido
         comentario.fechaCreacion?.let {
             val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             itemView.findViewById<TextView>(R.id.txtFechaComentario).text = sdf.format(it)
         }
 
-        // Lógica del botón eliminar
-        val prefs = getSharedPreferences("usuario", 0)
+        // Solo una declaración de prefs
+        val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
         val idUsuarioSesion = prefs.getInt("idUsuario", -1)
         val rolUsuarioSesion = prefs.getString("rol", "")
 

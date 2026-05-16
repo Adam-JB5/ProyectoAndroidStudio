@@ -28,6 +28,7 @@ fun Activity.setupTopBarOverlay() {
         Glide.with(this)
             .load(fotoUrl)
             .placeholder(R.drawable.user)
+            .circleCrop()
             .into(btnUsuario)
     }
 

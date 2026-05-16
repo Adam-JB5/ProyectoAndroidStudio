@@ -1,5 +1,6 @@
 package com.example.northfutbol
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -65,6 +67,9 @@ class EquipoActivity : AppCompatActivity() {
 
         if (idEquipo != -1) {
             obtenerDatosEquipo()
+            cargarNoticiasEquipo()
+            cargarPartidosEquipo()
+            cargarJugadoresEquipo()
         } else {
             Toast.makeText(this, "Error: No se recibió el ID del equipo", Toast.LENGTH_SHORT).show()
         }
@@ -248,6 +253,146 @@ class EquipoActivity : AppCompatActivity() {
                         if (btnSeguir.isChecked) seguirEquipo() else dejarDeSeguirEquipo()
                     }
                 }
+            }
+        }
+    }
+
+    private fun cargarNoticiasEquipo() {
+        val peticion = PeticionNoticia(PeticionNoticia.TipoOperacion.READ_BY_TEAM, idEquipo)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketNoticia(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true && !respuesta.noticias.isNullOrEmpty()) {
+                        contentNoticias.removeAllViews()
+                        for (noticia in respuesta.noticias) {
+                            val item = layoutInflater.inflate(R.layout.item_noticia, contentNoticias, false)
+
+                            item.findViewById<TextView>(R.id.txtTituloNoticia).text = noticia.titulo
+                            item.findViewById<TextView>(R.id.txtSubtituloNoticia).text = noticia.subtitulo
+                            Glide.with(this@EquipoActivity)
+                                .load(noticia.imagen)
+                                .placeholder(R.color.negro_secciones)
+                                .centerCrop()
+                                .into(item.findViewById(R.id.imgNoticia))
+
+                            item.setOnClickListener {
+                                val intent =
+                                    Intent(this@EquipoActivity, NoticiaActivity::class.java)
+                                intent.putExtra("ID_NOTICIA", noticia.idNoticia)
+                                startActivity(intent)
+                            }
+
+                            contentNoticias.addView(item)
+                        }
+                    } else {
+                        val tv = TextView(this@EquipoActivity)
+                        tv.text = "No hay noticias para este equipo"
+                        tv.setTextColor(Color.GRAY)
+                        tv.setPadding(16, 16, 16, 16)
+                        contentNoticias.addView(tv)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_EQUIPO", "Error noticias: ${e.message}")
+            }
+        }
+    }
+
+    private fun cargarPartidosEquipo() {
+        val peticion = PeticionPartido(PeticionPartido.TipoOperacion.READ_BY_TEAM, idEquipo)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketPartido(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true && !respuesta.partidos.isNullOrEmpty()) {
+                        contentPartidos.removeAllViews()
+                        for (partido in respuesta.partidos) {
+                            val item = layoutInflater.inflate(R.layout.item_partido, contentPartidos, false)
+
+                            item.findViewById<TextView>(R.id.txtEquipoLocal).text = partido.local.nombre
+                            item.findViewById<TextView>(R.id.txtEquipoVisitante).text = partido.visitante.nombre
+                            item.findViewById<TextView>(R.id.txtFechaPartido).text =
+                                java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(partido.fecha)
+                            item.findViewById<TextView>(R.id.txtHora).text =
+                                java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(partido.fecha)
+                            item.findViewById<ImageView>(R.id.imgEquipoLocal).setImageResource(
+                                EscudosHelper.obtenerEscudo(partido.local.nombre)
+                            )
+                            item.findViewById<ImageView>(R.id.imgEquipoVisitante).setImageResource(
+                                EscudosHelper.obtenerEscudo(partido.visitante.nombre)
+                            )
+
+                            val cardView = item as androidx.cardview.widget.CardView
+                            cardView.setCardBackgroundColor(android.graphics.Color.TRANSPARENT)
+                            item.findViewById<LinearLayout>(R.id.layoutInternoPartido).background = ZigzagBackground()
+
+                            item.setOnClickListener {
+                                val intent =
+                                    Intent(this@EquipoActivity, PartidoActivity::class.java)
+                                intent.putExtra("ID_PARTIDO", partido.idPartido)
+                                startActivity(intent)
+                            }
+
+                            contentPartidos.addView(item)
+                        }
+                    } else {
+                        val tv = TextView(this@EquipoActivity)
+                        tv.text = "No hay partidos para este equipo"
+                        tv.setTextColor(Color.GRAY)
+                        tv.setPadding(16, 16, 16, 16)
+                        contentPartidos.addView(tv)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_EQUIPO", "Error partidos: ${e.message}")
+            }
+        }
+    }
+
+    private fun cargarJugadoresEquipo() {
+        val peticion = PeticionJugador(PeticionJugador.TipoOperacion.READ_BY_TEAM, idEquipo)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketJugador(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
+
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true && !respuesta.jugadores.isNullOrEmpty()) {
+                        contentJugadores.removeAllViews()
+                        for (jugador in respuesta.jugadores) {
+                            val item = layoutInflater.inflate(R.layout.item_jugador, contentJugadores, false)
+
+                            item.findViewById<TextView>(R.id.txtNumero).text = jugador.dorsal.toString()
+                            item.findViewById<TextView>(R.id.txtNombre).text =
+                                "${jugador.nombre} ${jugador.apellido ?: ""}".trim()
+                            item.findViewById<TextView>(R.id.posicion).text = jugador.posicion
+
+                            contentJugadores.addView(item)
+                        }
+                    } else {
+                        val tv = TextView(this@EquipoActivity)
+                        tv.text = "No hay jugadores para este equipo"
+                        tv.setTextColor(Color.GRAY)
+                        tv.setPadding(16, 16, 16, 16)
+                        contentJugadores.addView(tv)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_EQUIPO", "Error jugadores: ${e.message}")
             }
         }
     }

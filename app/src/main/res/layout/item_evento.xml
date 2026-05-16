@@ -1,4 +1,3 @@
-<!-- res/layout/item_evento.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,7 +5,27 @@
     android:padding="10dp"
     android:gravity="center_vertical">
 
-    <!-- Minuto -->
+    <!-- LADO LOCAL (izquierda) -->
+    <TextView
+        android:id="@+id/tvNombreJugadorLocal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nombre Jugador"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:gravity="start"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/ivTipoEventoLocal"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:src="@android:drawable/btn_star_big_on"
+        android:visibility="invisible"/>
+
+    <!-- Minuto (centro) -->
     <TextView
         android:id="@+id/tvMinuto"
         android:layout_width="40dp"
@@ -16,22 +35,24 @@
         android:textSize="13sp"
         android:gravity="center"/>
 
-    <!-- Icono del tipo de evento -->
+    <!-- LADO VISITANTE (derecha) -->
     <ImageView
-        android:id="@+id/ivTipoEvento"
+        android:id="@+id/ivTipoEventoVisitante"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginHorizontal="8dp"
-        android:src="@android:drawable/btn_star_big_on"/>
+        android:layout_marginStart="8dp"
+        android:src="@android:drawable/btn_star_big_on"
+        android:visibility="invisible"/>
 
-    <!-- Nombre del jugador -->
     <TextView
-        android:id="@+id/tvNombreJugador"
+        android:id="@+id/tvNombreJugadorVisitante"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Nombre Jugador"
         android:textColor="@android:color/white"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:gravity="end"
+        android:visibility="invisible"/>
 
 </LinearLayout>

@@ -20,7 +20,7 @@ class ZigzagBackground(
         val w = bounds.width().toFloat()
         val h = bounds.height().toFloat()
         val zigSize = 24f
-        val amplitude = 20f
+        val amplitude = 22f
 
         // Fondo derecho completo
         canvas.drawRect(0f, 0f, w, h, paintRight)
@@ -30,8 +30,8 @@ class ZigzagBackground(
             moveTo(0f, 0f)
 
             // La línea de separación empieza en ~40% arriba y termina en ~60% abajo (diagonal)
-            val xStart = w * 0.35f
-            val xEnd = w * 0.55f
+            val xStart = w * 0.40f
+            val xEnd = w * 0.60f
 
             lineTo(xStart, 0f)
 

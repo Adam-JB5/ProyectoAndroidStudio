@@ -109,7 +109,7 @@ class PartidoActivity : AppCompatActivity() {
         tabAlineacion.setOnClickListener { mostrarAlineacion() }
         tabEventos.setOnClickListener {
             mostrarEventos()
-            cargarEventosPartido() // Aquí deberías hacer la petición al backend en el futuro
+            cargarEventosPartido(null)
         }
     }
 
@@ -149,6 +149,9 @@ class PartidoActivity : AppCompatActivity() {
                         //PUNTUACION
                         txtMarcador.text = partido.golesLocal.toString() + " | " + partido.golesVisitante.toString()
 
+                        val header = findViewById<LinearLayout>(R.id.header)
+                        header.background = ZigzagBackground()
+
                         // Carga inicial de la alineación local
                         cargarJugadoresDesdeServidor(idLocal)
                         marcarEquipoActivo(btnEquipo1, btnEquipo2)
@@ -180,7 +183,8 @@ class PartidoActivity : AppCompatActivity() {
                             val item = layoutInflater.inflate(R.layout.item_jugador, contenedorJugadores, false)
 
                             item.findViewById<TextView>(R.id.txtNumero).text = jugador.dorsal.toString()
-                            item.findViewById<TextView>(R.id.txtNombre).text = "${jugador.nombre} ${jugador.apellido}"
+                            item.findViewById<TextView>(R.id.txtNombre).text =
+                                "${jugador.nombre} ${jugador.apellido ?: ""}".trim()
                             item.findViewById<TextView>(R.id.posicion).text = jugador.posicion
 
                             contenedorJugadores.addView(item)
@@ -204,33 +208,80 @@ class PartidoActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarEventosPartido() {
+    private fun cargarEventosPartido(idEquipoFiltro: Int? = null) {
         val contenedorEventos = findViewById<LinearLayout>(R.id.listaEventos)
         contenedorEventos.removeAllViews()
 
-        for (evento in eventosPartido) {
-            val item = layoutInflater.inflate(R.layout.item_evento, contenedorEventos, false)
+        val peticion = PeticionEventoPartido(PeticionEventoPartido.TipoOperacion.READ_BY_PARTIDO, idPartido)
 
-            val txtMinuto = item.findViewById<TextView>(R.id.tvMinuto)
-            val imgTipoEvento = item.findViewById<ImageView>(R.id.ivTipoEvento)
-            val txtNombreJugador = item.findViewById<TextView>(R.id.tvNombreJugador)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = ClienteSocketEventoPartido(
+                    ClienteConfig.getServerIP(),
+                    ClienteConfig.PUERTO_SERVIDOR
+                ).enviarPeticion(peticion)
 
-            // Mostrar minuto
-            txtMinuto.text = "${evento.minuto}'"
+                withContext(Dispatchers.Main) {
+                    if (respuesta?.isExito == true && !respuesta.eventoPartidos.isNullOrEmpty()) {
 
-            // Mostrar nombre del jugador
-            txtNombreJugador.text = evento.nombre
+                        // Filtramos por equipo si se pasa un ID, si no mostramos todos
+                        val eventosFiltrados = if (idEquipoFiltro != null)
+                            respuesta.eventoPartidos.filter { it.jugador.equipo.idEquipo == idEquipoFiltro }
+                        else
+                            respuesta.eventoPartidos
 
-            // Asignar icono según tipo de evento
-            when (evento.tipoEvento) {
-                'G' -> imgTipoEvento.setImageResource(R.drawable.goal)   // Gol
-                'M' -> imgTipoEvento.setImageResource(R.drawable.yellow_card) // Amarilla
-                'R' -> imgTipoEvento.setImageResource(R.drawable.red_card) // Roja
-                'A' -> imgTipoEvento.setImageResource(R.drawable.assist)  // Asistencia
-                else -> imgTipoEvento.setImageResource(R.drawable.home)
+                        for (evento in eventosFiltrados) {
+                            val item = layoutInflater.inflate(R.layout.item_evento, contenedorEventos, false)
+
+                            item.findViewById<TextView>(R.id.tvMinuto).text = "${evento.minuto}'"
+
+                            val esLocal = evento.jugador.equipo.idEquipo == idLocal
+
+                            val icono = when (evento.tipoEvento) {
+                                "G" -> R.drawable.goal
+                                "M" -> R.drawable.yellow_card
+                                "R" -> R.drawable.red_card
+                                "A" -> R.drawable.assist
+                                else -> R.drawable.home
+                            }
+
+                            if (esLocal) {
+                                item.findViewById<TextView>(R.id.tvNombreJugadorLocal).apply {
+                                    text = "${evento.jugador.nombre} ${evento.jugador.apellido}"
+                                    visibility = View.VISIBLE
+                                }
+                                item.findViewById<ImageView>(R.id.ivTipoEventoLocal).apply {
+                                    setImageResource(icono)
+                                    visibility = View.VISIBLE
+                                }
+                            } else {
+                                item.findViewById<TextView>(R.id.tvNombreJugadorVisitante).apply {
+                                    text = "${evento.jugador.nombre} ${evento.jugador.apellido}"
+                                    visibility = View.VISIBLE
+                                }
+                                item.findViewById<ImageView>(R.id.ivTipoEventoVisitante).apply {
+                                    setImageResource(icono)
+                                    visibility = View.VISIBLE
+                                }
+                            }
+
+                            contenedorEventos.addView(item)
+                        }
+
+                        if (eventosFiltrados.isEmpty()) {
+                            Toast.makeText(this@PartidoActivity, "Sin eventos para este equipo", Toast.LENGTH_SHORT).show()
+                        }
+
+                    } else {
+                        Toast.makeText(this@PartidoActivity, "Sin eventos en este partido", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ERROR_SERVER", "Error al obtener eventos: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PartidoActivity, "Error de conexión", Toast.LENGTH_LONG).show()
+                }
             }
-
-            contenedorEventos.addView(item)
         }
     }
 
@@ -243,10 +294,10 @@ class PartidoActivity : AppCompatActivity() {
     private fun mostrarAlineacion() {
         scrollAlineacion.visibility = View.VISIBLE
         scrollEventos.visibility = View.GONE
+        findViewById<LinearLayout>(R.id.selectorEquipos).visibility = View.VISIBLE  // ADD
 
         tabAlineacion.setBackgroundResource(R.drawable.bg_tab_selected)
         tabEventos.setBackgroundResource(android.R.color.transparent)
-
         tabAlineacion.setTextColor(ContextCompat.getColor(this, R.color.negro))
         tabEventos.setTextColor(ContextCompat.getColor(this, R.color.gris_texto))
     }
@@ -254,10 +305,10 @@ class PartidoActivity : AppCompatActivity() {
     private fun mostrarEventos() {
         scrollAlineacion.visibility = View.GONE
         scrollEventos.visibility = View.VISIBLE
+        findViewById<LinearLayout>(R.id.selectorEquipos).visibility = View.GONE  // ADD
 
         tabEventos.setBackgroundResource(R.drawable.bg_tab_selected)
         tabAlineacion.setBackgroundResource(android.R.color.transparent)
-
         tabEventos.setTextColor(ContextCompat.getColor(this, R.color.negro))
         tabAlineacion.setTextColor(ContextCompat.getColor(this, R.color.gris_texto))
     }

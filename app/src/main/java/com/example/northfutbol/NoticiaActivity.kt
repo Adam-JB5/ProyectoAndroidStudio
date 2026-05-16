@@ -31,6 +31,7 @@ class NoticiaActivity : AppCompatActivity() {
 
     // Vistas
     private lateinit var imgNoticia: ImageView
+    private lateinit var imgEquipo: ImageView
     private lateinit var txtTitulo: TextView
     private lateinit var txtSubtitulo: TextView
     private lateinit var txtEquipo: TextView
@@ -78,6 +79,7 @@ class NoticiaActivity : AppCompatActivity() {
 
     private fun initViews() {
         imgNoticia = findViewById(R.id.imgNoticia)
+        imgEquipo = findViewById(R.id.imgEquipo)
         txtTitulo = findViewById(R.id.txtTitulo)
         txtSubtitulo = findViewById(R.id.txtSubtitulo)
         txtEquipo = findViewById(R.id.txtEquipo)
@@ -121,6 +123,8 @@ class NoticiaActivity : AppCompatActivity() {
                             .transition(DrawableTransitionOptions.withCrossFade())
                             .centerCrop()
                             .into(imgNoticia)
+
+                        imgEquipo.setImageResource(EscudosHelper.obtenerEscudo(noticia.equipo?.nombre))
                     } else {
                         Toast.makeText(this@NoticiaActivity, "No se pudo cargar la noticia", Toast.LENGTH_SHORT).show()
                     }

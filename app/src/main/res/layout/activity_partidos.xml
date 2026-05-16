@@ -23,62 +23,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnTodos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Todos"
-                android:layout_marginEnd="8dp"
-                android:background="@color/negro_secciones"
-                android:textColor="@android:color/white"
-                android:minWidth="0dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:includeFontPadding="false"/>
-
-            <Button
-                android:id="@+id/btnBarcelona"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Barcelona"
-                android:layout_marginEnd="8dp"
-                android:background="@color/negro_secciones"
-                android:textColor="@android:color/white"
-                android:minWidth="0dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:includeFontPadding="false"/>
-
-            <Button
-                android:id="@+id/btnAtMadrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="At. Madrid"
-                android:layout_marginEnd="8dp"
-                android:background="@color/negro_secciones"
-                android:textColor="@android:color/white"
-                android:minWidth="0dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:includeFontPadding="false"/>
-
-            <Button
-                android:id="@+id/btnRacing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Racing"
-                android:layout_marginEnd="8dp"
-                android:background="@color/negro_secciones"
-                android:textColor="@android:color/white"
-                android:minWidth="0dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:includeFontPadding="false"/>
+            <!-- Se llena dinámicamente desde PartidosActivity -->
         </LinearLayout>
     </HorizontalScrollView>
 
     <!-- CONTENIDO SCROLLABLE -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/filtrosScroll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:visibility="gone"/>
     <ScrollView
         android:id="@+id/scrollContent"
         android:layout_width="match_parent"

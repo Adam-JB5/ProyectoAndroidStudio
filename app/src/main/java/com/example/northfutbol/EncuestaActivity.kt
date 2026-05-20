@@ -35,6 +35,9 @@ class EncuestaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_encuesta)
 
+        setupTopBarOverlay()
+        setupBottomBar(R.id.bottomBar)
+
         initViews()
         preguntas = resources.getStringArray(R.array.preguntas)
         textViews = arrayOf(tvPregunta1, tvPregunta2, tvPregunta3, tvPregunta4, tvPregunta5)
